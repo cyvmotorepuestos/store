@@ -32,11 +32,13 @@
 </head>
 <body class="bg-gray-50 font-sans text-gray-800 flex flex-col min-h-screen antialiased">
 
+    <!-- Top Bar -->
     <div class="bg-gradient-to-r from-brand-bluedark via-brand-blue to-brand-bluedark text-white text-xs py-2 px-4 text-center font-medium shadow-inner flex items-center justify-center gap-2">
         <span class="inline-block w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-        <span><strong>C&V DISTRIBUIDORA</strong> · Envíos a todo el país | Repuestos y accesorios para tu moto al mejor precio</span>
+        <span><strong>C&V DISTRIBUIDORA</strong> · Envíos a domicilio | Repuestos y accesorios para tu moto al mejor precio</span>
     </div>
 
+    <!-- Header / Navbar -->
     <header class="bg-brand-dark text-white sticky top-0 z-40 shadow-xl border-b border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
             
@@ -48,6 +50,7 @@
                 </div>
             </a>
 
+            <!-- Buscador general -->
             <div class="flex-1 max-w-lg relative">
                 <div class="relative">
                     <input type="text" id="searchInput" placeholder="Buscar por repuesto, código o marca..." 
@@ -56,6 +59,7 @@
                 </div>
             </div>
 
+            <!-- Botón Carrito -->
             <button id="cartDrawerBtn" class="relative bg-gray-800 hover:bg-gray-700 text-white p-2.5 px-4 rounded-full flex items-center space-x-2 text-xs font-bold transition-all border border-gray-700">
                 <div class="relative">
                     <i class="fa-solid fa-cart-shopping text-base"></i>
@@ -66,6 +70,7 @@
         </div>
     </header>
 
+    <!-- Carrusel de Hero / Anuncios -->
     <section class="relative bg-brand-dark overflow-hidden">
         <div id="carouselSlides" class="relative w-full h-52 sm:h-72 md:h-80">
             <div class="carousel-item absolute inset-0 transition-opacity duration-700 ease-in-out opacity-100 flex items-center bg-gradient-to-r from-black via-brand-dark to-transparent">
@@ -73,7 +78,7 @@
                     <span class="bg-red-600 text-[10px] font-black px-2.5 py-1 rounded uppercase tracking-wider mb-2 inline-block">Novedades 2026</span>
                     <h1 class="text-2xl sm:text-4xl font-extrabold uppercase tracking-tight">Equipamiento & Repuestos</h1>
                     <p class="text-xs sm:text-sm text-gray-300 mt-2 max-w-md">Catálogo completo multimarca con stock actualizado en tiempo real.</p>
-                    <a href="#catalogo" class="mt-4 inline-block bg-red-600 hover:bg-red-700 text-white font-bold text-xs px-5 py-2.5 rounded-lg shadow-lg transition-transform active:scale-95">Ver Catálogo</a>
+                    <a href="#catalogo" class="mt-4 inline-block bg-red-600 hover:bg-red-700 text-white font-bold text-xs px-5 py-2.5 rounded-lg shadow-lg transition-transform active:scale-95">Ver Catálogo Completo</a>
                 </div>
                 <div class="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-overlay" style="background-image: url('https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1200&q=80');"></div>
             </div>
@@ -93,31 +98,58 @@
         <button id="nextSlideBtn" class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white w-9 h-9 rounded-full flex items-center justify-center text-xs backdrop-blur-sm z-20">❯</button>
     </section>
 
-    <main id="catalogo" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full">
+    <!-- Contenido Principal -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full space-y-12">
         
-        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-8">
-            <div>
+        <!-- SECCIÓN 1: PRODUCTOS DESTACADOS -->
+        <section id="featuredSection">
+            <div class="flex items-center justify-between mb-6 border-b border-gray-200 pb-3">
                 <h2 class="text-2xl font-black text-gray-900 uppercase tracking-tight flex items-center gap-2">
-                    <i class="fa-solid fa-list-check text-red-600"></i> Catálogo de Productos
+                    <i class="fa-solid fa-star text-amber-500"></i> Productos Destacados
                 </h2>
-                <p id="loadingStatus" class="text-xs text-brand-accent font-semibold mt-1 hidden"></p>
+                <a href="#catalogo" class="text-xs font-bold text-red-600 hover:text-red-700 flex items-center gap-1">
+                    Ir al Catálogo <i class="fa-solid fa-arrow-down text-[10px]"></i>
+                </a>
             </div>
-            
-            <div id="categoryFilters" class="flex flex-wrap gap-2">
-                <button onclick="filterCategory('all')" class="cat-btn bg-brand-dark text-white text-xs px-3.5 py-2 rounded-lg font-bold shadow-sm transition-all hover:bg-black">Todos</button>
-                <button onclick="filterCategory('Electricidad')" class="cat-btn bg-white text-gray-700 border border-gray-200 text-xs px-3.5 py-2 rounded-lg font-bold shadow-sm hover:bg-gray-100 transition-all">Electricidad</button>
-                <button onclick="filterCategory('Motor')" class="cat-btn bg-white text-gray-700 border border-gray-200 text-xs px-3.5 py-2 rounded-lg font-bold shadow-sm hover:bg-gray-100 transition-all">Motor</button>
-                <button onclick="filterCategory('Transmisión')" class="cat-btn bg-white text-gray-700 border border-gray-200 text-xs px-3.5 py-2 rounded-lg font-bold shadow-sm hover:bg-gray-100 transition-all">Transmisión</button>
-                <button onclick="filterCategory('Frenos')" class="cat-btn bg-white text-gray-700 border border-gray-200 text-xs px-3.5 py-2 rounded-lg font-bold shadow-sm hover:bg-gray-100 transition-all">Frenos</button>
-                <button onclick="filterCategory('Cables')" class="cat-btn bg-white text-gray-700 border border-gray-200 text-xs px-3.5 py-2 rounded-lg font-bold shadow-sm hover:bg-gray-100 transition-all">Cables</button>
-                <button onclick="filterCategory('Accesorios')" class="cat-btn bg-white text-gray-700 border border-gray-200 text-xs px-3.5 py-2 rounded-lg font-bold shadow-sm hover:bg-gray-100 transition-all">Accesorios</button>
-                <button onclick="filterCategory('Rulemanes')" class="cat-btn bg-white text-gray-700 border border-gray-200 text-xs px-3.5 py-2 rounded-lg font-bold shadow-sm hover:bg-gray-100 transition-all">Rulemanes</button>
+            <div id="featuredGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+        </section>
+
+        <!-- SECCIÓN 2: CATÁLOGO COMPLETO Y FILTROS -->
+        <section id="catalogo" class="pt-6 border-t border-gray-200">
+            <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-8">
+                <div>
+                    <h2 class="text-2xl font-black text-gray-900 uppercase tracking-tight flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-red-600"></i> Catálogo Completo
+                    </h2>
+                    <p id="loadingStatus" class="text-xs text-brand-accent font-semibold mt-1 hidden"></p>
+                </div>
+                
+                <!-- Botones de Filtro por Categoría -->
+                <div id="categoryFilters" class="flex flex-wrap gap-2">
+                    <button onclick="filterCategory('all')" class="cat-btn bg-brand-dark text-white text-xs px-3.5 py-2 rounded-lg font-bold shadow-sm transition-all hover:bg-black">Todos</button>
+                    <button onclick="filterCategory('Electricidad')" class="cat-btn bg-white text-gray-700 border border-gray-200 text-xs px-3.5 py-2 rounded-lg font-bold shadow-sm hover:bg-gray-100 transition-all">Electricidad</button>
+                    <button onclick="filterCategory('Motor')" class="cat-btn bg-white text-gray-700 border border-gray-200 text-xs px-3.5 py-2 rounded-lg font-bold shadow-sm hover:bg-gray-100 transition-all">Motor</button>
+                    <button onclick="filterCategory('Transmisión')" class="cat-btn bg-white text-gray-700 border border-gray-200 text-xs px-3.5 py-2 rounded-lg font-bold shadow-sm hover:bg-gray-100 transition-all">Transmisión</button>
+                    <button onclick="filterCategory('Frenos')" class="cat-btn bg-white text-gray-700 border border-gray-200 text-xs px-3.5 py-2 rounded-lg font-bold shadow-sm hover:bg-gray-100 transition-all">Frenos</button>
+                    <button onclick="filterCategory('Cables')" class="cat-btn bg-white text-gray-700 border border-gray-200 text-xs px-3.5 py-2 rounded-lg font-bold shadow-sm hover:bg-gray-100 transition-all">Cables</button>
+                    <button onclick="filterCategory('Accesorios')" class="cat-btn bg-white text-gray-700 border border-gray-200 text-xs px-3.5 py-2 rounded-lg font-bold shadow-sm hover:bg-gray-100 transition-all">Accesorios</button>
+                    <button onclick="filterCategory('Rulemanes')" class="cat-btn bg-white text-gray-700 border border-gray-200 text-xs px-3.5 py-2 rounded-lg font-bold shadow-sm hover:bg-gray-100 transition-all">Rulemanes</button>
+                </div>
             </div>
-        </div>
 
-        <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+            <!-- Grid de Productos Principal -->
+            <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
 
-        <section class="mt-16 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Botón Cargar Más -->
+            <div id="loadMoreContainer" class="mt-8 text-center hidden">
+                <button id="loadMoreBtn" onclick="loadMoreProducts()" class="bg-gray-800 hover:bg-gray-900 text-white font-bold text-xs px-8 py-3 rounded-xl shadow transition-all active:scale-95">
+                    <i class="fa-solid fa-arrows-rotate mr-1"></i> Cargar más productos
+                </button>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: BANNERS DE REDES Y CONTACTO -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="bg-gradient-to-r from-red-600 to-red-800 rounded-2xl p-6 text-white flex justify-between items-center shadow-lg relative overflow-hidden group">
                 <div class="z-10 max-w-xs">
                     <span class="text-[10px] uppercase tracking-widest font-bold bg-black/30 px-2 py-0.5 rounded">Asesoramiento directo</span>
@@ -150,6 +182,7 @@
 
     </main>
 
+    <!-- Footer -->
     <footer class="bg-brand-dark text-gray-400 text-xs py-8 border-t border-gray-800 mt-auto">
         <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
             <div class="flex items-center space-x-3">
@@ -163,6 +196,7 @@
         </div>
     </footer>
 
+    <!-- Drawer del Carrito -->
     <div id="cartDrawer" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden transition-opacity">
         <div class="fixed inset-y-0 right-0 max-w-full flex">
             <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col p-5 justify-between">
@@ -192,7 +226,9 @@
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwC1itXSy9umu58R1xDUCz5ddKbgq27zUINzMaCbCk1MKnon9Bk9eQeLd1fOJZCaKlI/exec";
 
         let products = [];
+        let filteredProducts = [];
         let currentCategory = 'all';
+        let itemsToShow = 8; // Lote inicial de productos a mostrar en el catálogo general
         let cart = JSON.parse(localStorage.getItem('cv_cart') || '[]');
 
         function formatARS(amount) {
@@ -209,33 +245,27 @@
                 const response = await fetch(WEB_APP_URL);
                 const data = await response.json();
                 products = data;
-                renderProducts(products);
+                filteredProducts = data;
+
+                renderFeaturedProducts();
+                renderCatalog();
             } catch (error) {
-                console.error("Error al cargar:", error);
+                console.error("Error al cargar productos:", error);
             }
         }
 
-        function renderProducts(items) {
-            const grid = document.getElementById('productsGrid');
-            grid.innerHTML = '';
+        // Genera la tarjeta HTML individual para un producto
+        function createProductCardHtml(prod) {
+            const price = Number(prod.price) || 0;
+            const stock = Number(prod.stock) || 0;
+            const details = prod.details ? `<span class="text-[11px] text-gray-500 block mt-1">Detalle: ${prod.details}</span>` : '';
             
-            if (items.length === 0) {
-                grid.innerHTML = `<p class="col-span-full text-center text-gray-500 py-12">No se encontraron productos en esta categoría.</p>`;
-                return;
-            }
+            const imageHtml = prod.image 
+                ? `<img src="${prod.image}" alt="${prod.name}" class="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-300">`
+                : `<div class="w-full h-44 bg-gray-100 flex items-center justify-center text-gray-300"><i class="fa-solid fa-motorcycle text-4xl"></i></div>`;
 
-            items.forEach(prod => {
-                const price = Number(prod.price) || 0;
-                const stock = Number(prod.stock) || 0;
-                const details = prod.details ? `<span class="text-[11px] text-gray-500 block mt-1">Detalle: ${prod.details}</span>` : '';
-                
-                const imageHtml = prod.image 
-                    ? `<img src="${prod.image}" alt="${prod.name}" class="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-300">`
-                    : `<div class="w-full h-44 bg-gray-100 flex items-center justify-center text-gray-300"><i class="fa-solid fa-motorcycle text-4xl"></i></div>`;
-
-                const card = document.createElement('div');
-                card.className = "bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col justify-between group hover:shadow-md transition-shadow";
-                card.innerHTML = `
+            return `
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col justify-between group hover:shadow-md transition-shadow">
                     <div>
                         <div class="overflow-hidden bg-gray-50 relative">
                             ${imageHtml}
@@ -257,21 +287,65 @@
                             <i class="fa-solid fa-cart-plus"></i> Agregar al Carrito
                         </button>
                     </div>
-                `;
-                grid.appendChild(card);
-            });
+                </div>
+            `;
         }
 
-        function filterCategory(cat) {
-            currentCategory = cat;
-            if (cat === 'all') {
-                renderProducts(products);
+        // Renderiza los primeros 4 productos como "Destacados"
+        function renderFeaturedProducts() {
+            const grid = document.getElementById('featuredGrid');
+            const featuredList = products.slice(0, 4); // Selecciona los primeros 4 ítems
+            
+            if (featuredList.length === 0) {
+                document.getElementById('featuredSection').classList.add('hidden');
+                return;
+            }
+
+            grid.innerHTML = featuredList.map(prod => createProductCardHtml(prod)).join('');
+        }
+
+        // Renderiza el catálogo principal progresivamente
+        function renderCatalog() {
+            const grid = document.getElementById('productsGrid');
+            const loadMoreContainer = document.getElementById('loadMoreContainer');
+
+            if (filteredProducts.length === 0) {
+                grid.innerHTML = `<p class="col-span-full text-center text-gray-500 py-12">No se encontraron productos en esta búsqueda.</p>`;
+                loadMoreContainer.classList.add('hidden');
+                return;
+            }
+
+            const visibleItems = filteredProducts.slice(0, itemsToShow);
+            grid.innerHTML = visibleItems.map(prod => createProductCardHtml(prod)).join('');
+
+            // Muestra u oculta el botón "Cargar más"
+            if (filteredProducts.length > itemsToShow) {
+                loadMoreContainer.classList.remove('hidden');
             } else {
-                const filtered = products.filter(p => p.category_name && p.category_name.toLowerCase() === cat.toLowerCase());
-                renderProducts(filtered);
+                loadMoreContainer.classList.add('hidden');
             }
         }
 
+        // Función para cargar 8 productos más al presionar el botón
+        function loadMoreProducts() {
+            itemsToShow += 8;
+            renderCatalog();
+        }
+
+        // Filtro por categorías
+        function filterCategory(cat) {
+            currentCategory = cat;
+            itemsToShow = 8; // Resetea el contador de la lista
+
+            if (cat === 'all') {
+                filteredProducts = products;
+            } else {
+                filteredProducts = products.filter(p => p.category_name && p.category_name.toLowerCase() === cat.toLowerCase());
+            }
+            renderCatalog();
+        }
+
+        // Carrito de Compras
         function addToCart(id) {
             const prod = products.find(p => String(p.id) === String(id));
             if (!prod) return;
@@ -337,7 +411,7 @@
             document.getElementById('cartTotal').textContent = formatARS(total);
         }
 
-        // Lógica del Carrusel
+        // Lógica del Carrusel Superior
         const slides = document.querySelectorAll('.carousel-item');
         let currentSlide = 0;
 
@@ -362,20 +436,23 @@
             showSlide(currentSlide);
         }, 5000);
 
-        // Eventos generales
+        // Búsqueda en vivo
         document.getElementById('searchInput').addEventListener('input', (e) => {
             const q = e.target.value.toLowerCase();
-            const filtered = products.filter(p => 
+            itemsToShow = 8;
+            filteredProducts = products.filter(p => 
                 p.name.toLowerCase().includes(q) || 
                 (p.category_name && p.category_name.toLowerCase().includes(q)) ||
                 (p.details && p.details.toLowerCase().includes(q))
             );
-            renderProducts(filtered);
+            renderCatalog();
         });
 
+        // Eventos de apertura/cierre del Carrito
         document.getElementById('cartDrawerBtn').addEventListener('click', () => document.getElementById('cartDrawer').classList.remove('hidden'));
         document.getElementById('closeCartBtn').addEventListener('click', () => document.getElementById('cartDrawer').classList.add('hidden'));
 
+        // Checkout por WhatsApp
         document.getElementById('whatsappCheckoutBtn').addEventListener('click', () => {
             if (cart.length === 0) return alert('El carrito está vacío');
             let text = "Hola C&V Distribuidora, quiero realizar el siguiente pedido:\n\n";
@@ -389,7 +466,7 @@
             window.open(`https://wa.me/5493804883917?text=${encodeURIComponent(text)}`, '_blank');
         });
 
-        // Inicializar
+        // Inicialización
         fetchProducts();
         updateCartUI();
     </script>
