@@ -40,9 +40,9 @@
 
     <!-- Header / Navbar -->
     <header class="bg-brand-dark text-white sticky top-0 z-40 shadow-xl border-b border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-4">
             
-            <a href="#" class="flex items-center space-x-3 group">
+            <a href="javascript:void(0)" onclick="switchTab('inicio')" class="flex items-center space-x-3 group">
                 <img src="Imagen2.jpg" alt="C&V Logo" class="h-10 md:h-12 w-auto object-contain bg-white p-1 rounded-md shadow-sm transition-transform group-hover:scale-105">
                 <div class="hidden sm:flex flex-col">
                     <span class="font-black text-lg leading-tight tracking-tight text-white">C&V <span class="text-red-500">STORE</span></span>
@@ -50,17 +50,22 @@
                 </div>
             </a>
 
-            <!-- Buscador general -->
-            <div class="flex-1 max-w-lg relative">
-                <div class="relative">
-                    <input type="text" id="searchInput" placeholder="Buscar por repuesto, código o marca..." 
-                        class="w-full bg-gray-900/90 text-white placeholder-gray-400 rounded-full pl-10 pr-4 py-2 text-xs md:text-sm focus:outline-none focus:ring-2 focus:ring-red-500 border border-gray-700 transition-all">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+            <!-- Buscador general con Botón -->
+            <div class="flex-1 max-w-lg relative order-3 md:order-2 w-full md:w-auto">
+                <div class="flex items-center gap-2">
+                    <div class="relative w-full">
+                        <input type="text" id="searchInput" placeholder="Buscar por repuesto, código o marca (ej. cable)..." 
+                            class="w-full bg-gray-900/90 text-white placeholder-gray-400 rounded-full pl-10 pr-4 py-2 text-xs md:text-sm focus:outline-none focus:ring-2 focus:ring-red-500 border border-gray-700 transition-all">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
+                    </div>
+                    <button onclick="executeSearch()" class="bg-red-600 hover:bg-red-700 text-white font-bold px-4 py-2 rounded-full text-xs transition-colors flex items-center gap-1 shadow-md">
+                        <span>Buscar</span>
+                    </button>
                 </div>
             </div>
 
             <!-- Botón Carrito -->
-            <button id="cartDrawerBtn" class="relative bg-gray-800 hover:bg-gray-700 text-white p-2.5 px-4 rounded-full flex items-center space-x-2 text-xs font-bold transition-all border border-gray-700">
+            <button id="cartDrawerBtn" class="relative bg-gray-800 hover:bg-gray-700 text-white p-2.5 px-4 rounded-full flex items-center space-x-2 text-xs font-bold transition-all border border-gray-700 order-2 md:order-3">
                 <div class="relative">
                     <i class="fa-solid fa-cart-shopping text-base"></i>
                     <span id="cartCountBadge" class="absolute -top-3 -right-3 bg-red-600 text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center border-2 border-brand-dark">0</span>
@@ -68,17 +73,32 @@
                 <span class="hidden md:inline pl-1">Mi Carrito</span>
             </button>
         </div>
+
+        <!-- Navegación Secundario (3 Botones principales) -->
+        <nav class="bg-gray-900 border-t border-gray-800 py-2">
+            <div class="max-w-7xl mx-auto px-4 flex justify-center space-x-6 text-xs font-bold uppercase tracking-wider">
+                <button onclick="switchTab('inicio')" id="nav-inicio" class="text-red-500 hover:text-red-400 transition-colors flex items-center gap-1">
+                    <i class="fa-solid fa-house"></i> Inicio
+                </button>
+                <button onclick="switchTab('catalogo')" id="nav-catalogo" class="text-gray-300 hover:text-white transition-colors flex items-center gap-1">
+                    <i class="fa-solid fa-book-open"></i> Catálogo
+                </button>
+                <button onclick="switchTab('contacto')" id="nav-contacto" class="text-gray-300 hover:text-white transition-colors flex items-center gap-1">
+                    <i class="fa-solid fa-envelope"></i> Contacto
+                </button>
+            </div>
+        </nav>
     </header>
 
     <!-- Carrusel de Hero / Anuncios -->
-    <section class="relative bg-brand-dark overflow-hidden">
+    <section id="heroSection" class="relative bg-brand-dark overflow-hidden">
         <div id="carouselSlides" class="relative w-full h-52 sm:h-72 md:h-80">
             <div class="carousel-item absolute inset-0 transition-opacity duration-700 ease-in-out opacity-100 flex items-center bg-gradient-to-r from-black via-brand-dark to-transparent">
                 <div class="max-w-7xl mx-auto px-6 sm:px-12 w-full z-10 text-white">
                     <span class="bg-red-600 text-[10px] font-black px-2.5 py-1 rounded uppercase tracking-wider mb-2 inline-block">Novedades 2026</span>
                     <h1 class="text-2xl sm:text-4xl font-extrabold uppercase tracking-tight">Equipamiento & Repuestos</h1>
                     <p class="text-xs sm:text-sm text-gray-300 mt-2 max-w-md">Catálogo completo multimarca con stock actualizado en tiempo real.</p>
-                    <a href="#catalogo" class="mt-4 inline-block bg-red-600 hover:bg-red-700 text-white font-bold text-xs px-5 py-2.5 rounded-lg shadow-lg transition-transform active:scale-95">Ver Catálogo Completo</a>
+                    <button onclick="switchTab('catalogo')" class="mt-4 inline-block bg-red-600 hover:bg-red-700 text-white font-bold text-xs px-5 py-2.5 rounded-lg shadow-lg transition-transform active:scale-95">Ver Catálogo Completo</button>
                 </div>
                 <div class="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-overlay" style="background-image: url('https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1200&q=80');"></div>
             </div>
@@ -101,27 +121,27 @@
     <!-- Contenido Principal -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full space-y-12">
         
-        <!-- SECCIÓN 1: PRODUCTOS DESTACADOS -->
+        <!-- SECCIÓN 1: PRODUCTOS DESTACADOS (SÓLO VISIBLE EN INICIO) -->
         <section id="featuredSection">
             <div class="flex items-center justify-between mb-6 border-b border-gray-200 pb-3">
                 <h2 class="text-2xl font-black text-gray-900 uppercase tracking-tight flex items-center gap-2">
                     <i class="fa-solid fa-star text-amber-500"></i> Productos Destacados
                 </h2>
-                <a href="#catalogo" class="text-xs font-bold text-red-600 hover:text-red-700 flex items-center gap-1">
-                    Ir al Catálogo <i class="fa-solid fa-arrow-down text-[10px]"></i>
-                </a>
+                <button onclick="switchTab('catalogo')" class="text-xs font-bold text-red-600 hover:text-red-700 flex items-center gap-1">
+                    Ir al Catálogo <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </button>
             </div>
             <div id="featuredGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
         </section>
 
-        <!-- SECCIÓN 2: CATÁLOGO COMPLETO Y FILTROS -->
-        <section id="catalogo" class="pt-6 border-t border-gray-200">
+        <!-- SECCIÓN 2: CATÁLOGO COMPLETO (OCULTO EN INICIO, VISIBLE EN VISTA CATÁLOGO) -->
+        <section id="catalogo" class="hidden pt-2">
             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-8">
                 <div>
                     <h2 class="text-2xl font-black text-gray-900 uppercase tracking-tight flex items-center gap-2">
                         <i class="fa-solid fa-list-check text-red-600"></i> Catálogo Completo
                     </h2>
-                    <p id="loadingStatus" class="text-xs text-brand-accent font-semibold mt-1 hidden"></p>
+                    <p id="searchSummary" class="text-xs text-gray-500 font-medium mt-1"></p>
                 </div>
                 
                 <!-- Botones de Filtro por Categoría -->
@@ -149,14 +169,14 @@
         </section>
 
         <!-- SECCIÓN 3: BANNERS DE REDES Y CONTACTO -->
-        <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <section id="contactoSection" class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-gray-200">
             <div class="bg-gradient-to-r from-red-600 to-red-800 rounded-2xl p-6 text-white flex justify-between items-center shadow-lg relative overflow-hidden group">
                 <div class="z-10 max-w-xs">
                     <span class="text-[10px] uppercase tracking-widest font-bold bg-black/30 px-2 py-0.5 rounded">Asesoramiento directo</span>
                     <h3 class="text-xl font-extrabold mt-2">¿No encuentras el repuesto que buscas?</h3>
                     <p class="text-xs text-red-100 mt-1">Escríbenos por WhatsApp y lo conseguimos para ti.</p>
                     <a href="https://wa.me/5493804883917" target="_blank" class="mt-4 inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs px-4 py-2 rounded-lg shadow transition-colors">
-                        <i class="fa-brands fa-whatsapp text-sm"></i> Contactar Repuestero
+                        <i class="fa-brands fa-whatsapp text-sm"></i> Contactanos
                     </a>
                 </div>
                 <i class="fa-solid fa-gears absolute -right-4 -bottom-4 text-9xl opacity-10 group-hover:scale-110 transition-transform"></i>
@@ -227,8 +247,7 @@
 
         let products = [];
         let filteredProducts = [];
-        let currentCategory = 'all';
-        let itemsToShow = 8; // Lote inicial de productos a mostrar en el catálogo general
+        let itemsToShow = 8;
         let cart = JSON.parse(localStorage.getItem('cv_cart') || '[]');
 
         function formatARS(amount) {
@@ -236,16 +255,19 @@
         }
 
         async function fetchProducts() {
-            const statusEl = document.getElementById('loadingStatus');
             try {
-                if(WEB_APP_URL.includes("TU_URL")) {
-                    statusEl.textContent = "⚠️ Configura la URL de Google Apps Script en el código JS.";
-                    return;
-                }
+                if(WEB_APP_URL.includes("TU_URL")) return;
                 const response = await fetch(WEB_APP_URL);
                 const data = await response.json();
-                products = data;
-                filteredProducts = data;
+                
+                // Normaliza y convierte el stock inicial a números
+                products = data.map(p => ({
+                    ...p,
+                    price: Number(p.price) || 0,
+                    stock: Number(p.stock) || 0
+                }));
+
+                filteredProducts = [...products];
 
                 renderFeaturedProducts();
                 renderCatalog();
@@ -254,15 +276,32 @@
             }
         }
 
+        // Calcula el stock actual disponible restando lo que ya está agregado al carrito
+        function getAvailableStock(prod) {
+            const inCart = cart.find(item => String(item.id) === String(prod.id));
+            const cartQty = inCart ? inCart.quantity : 0;
+            return Math.max(0, prod.stock - cartQty);
+        }
+
         // Genera la tarjeta HTML individual para un producto
         function createProductCardHtml(prod) {
-            const price = Number(prod.price) || 0;
-            const stock = Number(prod.stock) || 0;
+            const price = prod.price;
+            const availableStock = getAvailableStock(prod);
             const details = prod.details ? `<span class="text-[11px] text-gray-500 block mt-1">Detalle: ${prod.details}</span>` : '';
             
             const imageHtml = prod.image 
                 ? `<img src="${prod.image}" alt="${prod.name}" class="w-full h-44 object-cover group-hover:scale-105 transition-transform duration-300">`
                 : `<div class="w-full h-44 bg-gray-100 flex items-center justify-center text-gray-300"><i class="fa-solid fa-motorcycle text-4xl"></i></div>`;
+
+            const stockBadge = availableStock > 0 
+                ? `<p class="text-[11px] text-emerald-600 font-semibold mt-2 flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Stock: ${availableStock} u.
+                   </p>`
+                : `<p class="text-[11px] text-red-500 font-semibold mt-2 flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Sin Stock disponible
+                   </p>`;
+
+            const buttonDisabled = availableStock <= 0;
 
             return `
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex flex-col justify-between group hover:shadow-md transition-shadow">
@@ -274,43 +313,91 @@
                         <div class="p-4">
                             <h3 class="font-bold text-gray-900 text-sm line-clamp-2">${prod.name}</h3>
                             ${details}
-                            <p class="text-[11px] text-emerald-600 font-semibold mt-2 flex items-center gap-1">
-                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Stock: ${stock} u.
-                            </p>
+                            ${stockBadge}
                             <div class="mt-3 pt-2 border-t border-gray-100 flex items-center justify-between">
                                 <span class="text-xl font-black text-gray-900">${formatARS(price)}</span>
                             </div>
                         </div>
                     </div>
                     <div class="p-4 pt-0">
-                        <button onclick="addToCart('${prod.id}')" class="w-full bg-red-600 hover:bg-red-700 text-white text-xs font-bold py-2.5 rounded-xl transition-colors flex items-center justify-center gap-1.5 shadow-sm">
-                            <i class="fa-solid fa-cart-plus"></i> Agregar al Carrito
+                        <button onclick="addToCart('${prod.id}')" ${buttonDisabled ? 'disabled' : ''} 
+                            class="w-full ${buttonDisabled ? 'bg-gray-300 cursor-not-allowed' : 'bg-red-600 hover:bg-red-700'} text-white text-xs font-bold py-2.5 rounded-xl transition-colors flex items-center justify-center gap-1.5 shadow-sm">
+                            <i class="fa-solid fa-cart-plus"></i> ${buttonDisabled ? 'Sin Stock' : 'Agregar al Carrito'}
                         </button>
                     </div>
                 </div>
             `;
         }
 
-        // Renderiza los primeros 4 productos como "Destacados"
+        // Navegación entre Pestañas (Inicio, Catálogo, Contacto)
+        function switchTab(tab) {
+            const hero = document.getElementById('heroSection');
+            const featured = document.getElementById('featuredSection');
+            const catalog = document.getElementById('catalogo');
+            const contact = document.getElementById('contactoSection');
+
+            // Reset estilos botones de menú
+            document.getElementById('nav-inicio').className = 'text-gray-300 hover:text-white transition-colors flex items-center gap-1';
+            document.getElementById('nav-catalogo').className = 'text-gray-300 hover:text-white transition-colors flex items-center gap-1';
+            document.getElementById('nav-contacto').className = 'text-gray-300 hover:text-white transition-colors flex items-center gap-1';
+
+            if (tab === 'inicio') {
+                hero.classList.remove('hidden');
+                featured.classList.remove('hidden');
+                catalog.classList.add('hidden');
+                document.getElementById('nav-inicio').className = 'text-red-500 hover:text-red-400 transition-colors flex items-center gap-1';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else if (tab === 'catalogo') {
+                hero.classList.add('hidden');
+                featured.classList.add('hidden');
+                catalog.classList.remove('hidden');
+                document.getElementById('nav-catalogo').className = 'text-red-500 hover:text-red-400 transition-colors flex items-center gap-1';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else if (tab === 'contacto') {
+                document.getElementById('nav-contacto').className = 'text-red-500 hover:text-red-400 transition-colors flex items-center gap-1';
+                contact.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Ejecutar Búsqueda desde la Barra de Navegación
+        function executeSearch() {
+            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+            switchTab('catalogo');
+
+            if (!query) {
+                filteredProducts = [...products];
+                document.getElementById('searchSummary').textContent = '';
+            } else {
+                filteredProducts = products.filter(p => 
+                    p.name.toLowerCase().includes(query) || 
+                    (p.category_name && p.category_name.toLowerCase().includes(query)) ||
+                    (p.details && p.details.toLowerCase().includes(query))
+                );
+                document.getElementById('searchSummary').textContent = `Mostrando resultados para "${query}" (${filteredProducts.length} encontrados)`;
+            }
+            itemsToShow = 8;
+            renderCatalog();
+        }
+
+        // Presionar Enter en el input de búsqueda
+        document.getElementById('searchInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') executeSearch();
+        });
+
+        // Renderiza productos destacados
         function renderFeaturedProducts() {
             const grid = document.getElementById('featuredGrid');
-            const featuredList = products.slice(0, 4); // Selecciona los primeros 4 ítems
-            
-            if (featuredList.length === 0) {
-                document.getElementById('featuredSection').classList.add('hidden');
-                return;
-            }
-
+            const featuredList = products.slice(0, 4);
             grid.innerHTML = featuredList.map(prod => createProductCardHtml(prod)).join('');
         }
 
-        // Renderiza el catálogo principal progresivamente
+        // Renderiza el catálogo
         function renderCatalog() {
             const grid = document.getElementById('productsGrid');
             const loadMoreContainer = document.getElementById('loadMoreContainer');
 
             if (filteredProducts.length === 0) {
-                grid.innerHTML = `<p class="col-span-full text-center text-gray-500 py-12">No se encontraron productos en esta búsqueda.</p>`;
+                grid.innerHTML = `<p class="col-span-full text-center text-gray-500 py-12">No se encontraron repuestos o productos coincidentes.</p>`;
                 loadMoreContainer.classList.add('hidden');
                 return;
             }
@@ -318,7 +405,6 @@
             const visibleItems = filteredProducts.slice(0, itemsToShow);
             grid.innerHTML = visibleItems.map(prod => createProductCardHtml(prod)).join('');
 
-            // Muestra u oculta el botón "Cargar más"
             if (filteredProducts.length > itemsToShow) {
                 loadMoreContainer.classList.remove('hidden');
             } else {
@@ -326,52 +412,72 @@
             }
         }
 
-        // Función para cargar 8 productos más al presionar el botón
         function loadMoreProducts() {
             itemsToShow += 8;
             renderCatalog();
         }
 
-        // Filtro por categorías
         function filterCategory(cat) {
-            currentCategory = cat;
-            itemsToShow = 8; // Resetea el contador de la lista
+            itemsToShow = 8;
+            document.getElementById('searchInput').value = '';
+            document.getElementById('searchSummary').textContent = '';
 
             if (cat === 'all') {
-                filteredProducts = products;
+                filteredProducts = [...products];
             } else {
                 filteredProducts = products.filter(p => p.category_name && p.category_name.toLowerCase() === cat.toLowerCase());
             }
             renderCatalog();
         }
 
-        // Carrito de Compras
+        // Agregar al Carrito (Descuenta Stock)
         function addToCart(id) {
             const prod = products.find(p => String(p.id) === String(id));
             if (!prod) return;
+
+            const available = getAvailableStock(prod);
+            if (available <= 0) {
+                alert('No hay más stock disponible de este producto.');
+                return;
+            }
+
             const existing = cart.find(item => String(item.id) === String(id));
             if (existing) {
                 existing.quantity += 1;
             } else {
-                cart.push({ ...prod, price: Number(prod.price), quantity: 1 });
+                cart.push({ ...prod, quantity: 1 });
             }
+
             updateCartUI();
+            renderFeaturedProducts();
+            renderCatalog();
         }
 
         function changeQuantity(id, delta) {
+            const prod = products.find(p => String(p.id) === String(id));
             const item = cart.find(i => String(i.id) === String(id));
-            if (!item) return;
+            if (!item || !prod) return;
+
+            if (delta > 0 && getAvailableStock(prod) <= 0) {
+                alert('No hay más stock disponible.');
+                return;
+            }
+
             item.quantity += delta;
             if (item.quantity <= 0) {
                 removeFromCart(id);
             } else {
                 updateCartUI();
+                renderFeaturedProducts();
+                renderCatalog();
             }
         }
 
         function removeFromCart(id) {
             cart = cart.filter(i => String(i.id) !== String(id));
             updateCartUI();
+            renderFeaturedProducts();
+            renderCatalog();
         }
 
         function updateCartUI() {
@@ -411,7 +517,7 @@
             document.getElementById('cartTotal').textContent = formatARS(total);
         }
 
-        // Lógica del Carrusel Superior
+        // Carrusel
         const slides = document.querySelectorAll('.carousel-item');
         let currentSlide = 0;
 
@@ -436,19 +542,7 @@
             showSlide(currentSlide);
         }, 5000);
 
-        // Búsqueda en vivo
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            const q = e.target.value.toLowerCase();
-            itemsToShow = 8;
-            filteredProducts = products.filter(p => 
-                p.name.toLowerCase().includes(q) || 
-                (p.category_name && p.category_name.toLowerCase().includes(q)) ||
-                (p.details && p.details.toLowerCase().includes(q))
-            );
-            renderCatalog();
-        });
-
-        // Eventos de apertura/cierre del Carrito
+        // Abrir/Cerrar Carrito
         document.getElementById('cartDrawerBtn').addEventListener('click', () => document.getElementById('cartDrawer').classList.remove('hidden'));
         document.getElementById('closeCartBtn').addEventListener('click', () => document.getElementById('cartDrawer').classList.add('hidden'));
 
@@ -466,7 +560,7 @@
             window.open(`https://wa.me/5493804883917?text=${encodeURIComponent(text)}`, '_blank');
         });
 
-        // Inicialización
+        // Inicializar
         fetchProducts();
         updateCartUI();
     </script>
