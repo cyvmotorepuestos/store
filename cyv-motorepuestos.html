@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> C&V | Equipamiento y Repuestos para Motos</title>
-    <!-- Tailwind CSS CDN -->
+    <title>C&V | Equipamiento y Repuestos para Motos</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
@@ -32,415 +29,85 @@
             }
         }
     </script>
-    <style>
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        .badge-pulse { animation: pulse-red 2s infinite; }
-        @keyframes pulse-red {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
-        }
-    </style>
 </head>
 <body class="bg-gray-100 font-sans text-gray-800 flex flex-col min-h-screen">
 
-    <!-- TOP ANNOUNCEMENT BAR -->
-    <div class="bg-brand-red text-white text-xs md:text-sm py-2 px-4 text-center font-medium overflow-hidden relative">
-        <div class="flex justify-center items-center space-x-2 md:space-x-6 animate-pulse">
-            <span>🔥 <strong>VENTA MAYORISTA & MINORISTA</strong> · Descuentos especiales por cantidad</span>
-        </div>
+    <div class="bg-brand-red text-white text-xs md:text-sm py-2 px-4 text-center font-medium">
+        <span>🔥 <strong>C&V DISTRIBUIDORA</strong> · Catálogo sincronizado desde Google Sheets</span>
     </div>
 
-    <!-- MAIN HEADER -->
     <header class="bg-brand-dark text-white sticky top-0 z-40 shadow-md">
-        <!-- Upper Nav -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
-            <!-- Mobile Menu Trigger & Logo -->
             <div class="flex items-center space-x-3">
-                <button id="mobileMenuBtn" class="lg:hidden text-gray-300 hover:text-white p-2">
-                    <i class="fa-solid fa-bars text-xl"></i>
-                </button>
-                <a href="#" class="flex items-center space-x-2 group">
-                    <div class="bg-brand-red text-white p-2 rounded-lg font-black text-xl italic tracking-tighter transform group-hover:scale-105 transition-transform">
-                        MMS
-                    </div>
+                <a href="#" class="flex items-center space-x-2">
+                    <div class="bg-brand-red text-white p-2 rounded-lg font-black text-xl italic tracking-tighter">C&V</div>
                     <div class="flex flex-col">
                         <span class="font-extrabold text-xl leading-none tracking-tight">C&V<span class="text-brand-red">STORE</span></span>
-                        <span class="text-[10px] text-gray-400 font-medium tracking-wider">REPUESTOS & EQUIPAMIENTO</span>
+                        <span class="text-[10px] text-gray-400 font-medium tracking-wider">REPUESTOS & MOTOS</span>
                     </div>
                 </a>
             </div>
 
-            <!-- Search Bar -->
             <div class="hidden sm:flex flex-1 max-w-xl relative">
-                <input type="text" id="searchInput" placeholder="Buscar por repuesto..." 
-                    class="w-full bg-gray-800 text-white placeholder-gray-400 rounded-l-lg pl-4 pr-10 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-red border border-gray-700">
-                <button id="searchBtn" class="bg-brand-red hover:bg-brand-reddark px-5 text-white rounded-r-lg font-medium transition-colors">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-                <!-- Search Suggestions Popup -->
-                <div id="searchResults" class="hidden absolute top-full left-0 right-0 bg-white text-gray-800 rounded-b-lg shadow-2xl mt-1 border border-gray-200 z-50 max-h-96 overflow-y-auto"></div>
+                <input type="text" id="searchInput" placeholder="Buscar repuesto, categoría o detalle..." 
+                    class="w-full bg-gray-800 text-white placeholder-gray-400 rounded-lg pl-4 pr-10 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-red border border-gray-700">
             </div>
 
-            <!-- Actions Right -->
-            <div class="flex items-center space-x-3 md:space-x-5">
-                <a href="https://wa.me/5491100000000" target="_blank" class="hidden md:flex items-center space-x-2 text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-2 rounded-lg transition-colors">
-                    <i class="fa-brands fa-whatsapp text-lg"></i>
-                    <span>Ventas</span>
-                </a>
-                <button id="cartDrawerBtn" class="relative text-gray-300 hover:text-white flex flex-col items-center text-xs p-1">
+            <div class="flex items-center space-x-3">
+                <button id="cartDrawerBtn" class="relative text-gray-300 hover:text-white flex items-center space-x-2 text-xs p-1">
                     <div class="relative">
                         <i class="fa-solid fa-cart-shopping text-xl md:text-2xl"></i>
                         <span id="cartCountBadge" class="absolute -top-2 -right-2 bg-brand-red text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
                     </div>
-                    <span class="hidden md:inline mt-0.5">Carrito</span>
+                    <span class="hidden md:inline">Carrito</span>
                 </button>
             </div>
         </div>
-
-        <!-- Mobile Search Bar -->
-        <div class="px-4 pb-3 sm:hidden">
-            <div class="relative">
-                <input type="text" id="mobileSearchInput" placeholder="Buscar repuestos, cascos, cubiertas..." 
-                    class="w-full bg-gray-800 text-white placeholder-gray-400 rounded-lg pl-3 pr-10 py-2 text-sm border border-gray-700 focus:outline-none focus:ring-2 focus:ring-brand-red">
-                <i class="fa-solid fa-magnifying-glass absolute right-3 top-3 text-gray-400 text-xs"></i>
-            </div>
-        </div>
-
-        <!-- Lower Navigation / Categories Bar -->
-        <nav class="bg-brand-gray border-t border-gray-800 hidden lg:block text-sm">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <ul class="flex space-x-8 py-2.5 font-medium overflow-x-auto no-scrollbar">
-                    <li><button data-category="all" class="nav-cat-btn text-brand-red font-bold hover:text-brand-red transition-colors flex items-center gap-1.5"><i class="fa-solid fa-grid-2"></i> Todos los Productos</button></li>
-                    <li><button data-category="Accesorios" class="nav-cat-btn text-gray-300 hover:text-white transition-colors">Accesorios</button></li>
-                    <li><button data-category="Cables" class="nav-cat-btn text-gray-300 hover:text-white transition-colors">Cables</button></li>
-                    <li><button data-category="Electricidad" class="nav-cat-btn text-gray-300 hover:text-white transition-colors">Electricidad</button></li>
-                    <li><button data-category="Frenos" class="nav-cat-btn text-gray-300 hover:text-white transition-colors">Frenos</button></li>
-                    <li><button data-category="Motor" class="nav-cat-btn text-gray-300 hover:text-white transition-colors">Motor</button></li>
-                    <li><button data-category="Rulemanes" class="nav-cat-btn text-gray-300 hover:text-white transition-colors">Rulemanes</button></li>
-                    <li><button data-category="Transmisión" class="nav-cat-btn text-gray-300 hover:text-white transition-colors">Transmisión</button></li>
-		</ul>
-            </div>
-        </nav>
     </header>
 
-    <!-- MOBILE NAVIGATION MENU SLIDE-OVER -->
-    <div id="mobileMenu" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden transition-opacity">
-        <div class="bg-brand-dark text-white w-4/5 max-w-sm h-full shadow-2xl flex flex-col">
-            <div class="p-4 border-b border-gray-800 flex justify-between items-center">
-                <span class="font-bold text-lg">Categorías</span>
-                <button id="closeMobileMenu" class="text-gray-400 hover:text-white p-1"><i class="fa-solid fa-xmark text-xl"></i></button>
-            </div>
-            <div class="flex-1 overflow-y-auto p-4 space-y-3">
-                <button data-category="all" class="mobile-cat-btn w-full text-left font-bold text-brand-red py-2 border-b border-gray-800">Ver Todo el Catálogo</button>
-                <button data-category="Accesorios" class="mobile-cat-btn w-full text-left text-gray-300 py-2 border-b border-gray-800">Accesorios</button>
-                <button data-category="Cables" class="mobile-cat-btn w-full text-left text-gray-300 py-2 border-b border-gray-800">Transmisión (Cadenas, Coronas)</button>
-                <button data-category="Electricidad" class="mobile-cat-btn w-full text-left text-gray-300 py-2 border-b border-gray-800">Electricidad y Encendido</button>
-                <button data-category="Frenos" class="mobile-cat-btn w-full text-left text-gray-300 py-2 border-b border-gray-800">Frenos</button>
-                <button data-category="Motor" class="mobile-cat-btn w-full text-left text-gray-300 py-2 border-b border-gray-800">Repuestos de Motor</button>
-                <button data-category="Rulemanes" class="mobile-cat-btn w-full text-left text-gray-300 py-2 border-b border-gray-800">Rulemanes</button>
-                <button data-category="Transmisión" class="mobile-cat-btn w-full text-left text-gray-300 py-2 border-b border-gray-800">Transmisión (Cadenas, Coronas)</button>
-            </div>
-            <div class="p-4 bg-gray-900 border-t border-gray-800 text-xs text-gray-400">
-                <p class="font-bold text-white mb-1">Atención al Cliente:</p>
-                <p>Lun a Vie: 9:00 a 18:00 hs | Sáb: 9:00 a 13:00 hs</p>
-                <p class="mt-2 text-emerald-400"><i class="fa-brands fa-whatsapp"></i> +54 9 11 0000-0000</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- HERO CAROUSEL / BANNER -->
-    <section class="bg-gray-900 text-white relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-16 grid grid-cols-1 md:grid-cols-2 items-center gap-8">
-            <div class="space-y-4 z-10">
-                <span class="bg-brand-red/20 text-brand-red border border-brand-red/40 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest inline-block">
-                    🔥 Distribuidora Oficial Argentina
-                </span>
-                <h1 class="text-3xl md:text-5xl font-black leading-tight">
-                    EQUIPAMIENTO Y REPUESTOS <span class="text-brand-red">PARA MOTOS</span>
-                </h1>
-                <p class="text-gray-300 text-sm md:text-base max-w-lg">
-                    Encontrá todo para tu moto: cilindros, pistones, kits de transmisión y accesorios.
-                </p>
-                <div class="flex flex-wrap gap-3 pt-2">
-                    <a href="#catalogo" class="bg-brand-red hover:bg-brand-reddark text-white font-bold px-6 py-3 rounded-lg shadow-lg hover:shadow-red-500/20 transition-all text-sm uppercase tracking-wider">
-                        Ver Ofertas de Hoy
-                    </a>
-                    <button id="ctaWholesaleBtn" class="bg-gray-800 hover:bg-gray-700 border border-gray-700 text-white font-semibold px-5 py-3 rounded-lg transition-colors text-sm">
-                        Solicitar Lista Mayorista
-                    </button>
-                </div>
-                <!-- Banner Badges -->
-                <div class="pt-4 grid grid-cols-3 gap-3 border-t border-gray-800 text-xs text-gray-400">
-                    <div><span class="text-white font-bold block"></span></div>
-                </div>
-            </div>
-
-            <!-- Hero Image Banner Showcase -->
-            <div class="relative flex justify-center items-center">
-                <div class="w-full max-w-md bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-2xl border border-gray-800 shadow-2xl relative">
-                    <div class="absolute -top-3 -right-3 bg-amber-500 text-gray-900 text-xs font-black px-3 py-1 rounded-full uppercase shadow">
-                        Envío Express 🚚
-                    </div>
-                    <div class="h-64 flex flex-col items-center justify-center text-center p-4">
-                        <div class="text-6xl text-brand-red mb-3">
-                            <i class="fa-solid fa-motorcycle"></i>
-                        </div>
-                        <h3 class="font-extrabold text-xl text-white">CATÁLOGO 2026 ACTUALIZADO</h3>
-                        <p class="text-xs text-gray-400 mt-2">Repuestos para tu moto.</p>
-                        <div class="mt-4 flex gap-2">
-                            <span class="bg-gray-700 text-gray-200 text-xs px-2.5 py-1 rounded">Cilindros</span>
-                            <span class="bg-gray-700 text-gray-200 text-xs px-2.5 py-1 rounded">Transmisión</span>
-                            <span class="bg-gray-700 text-gray-200 text-xs px-2.5 py-1 rounded">Accesorios</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TRUST BENIFITS STRIP -->
-    <section class="bg-white border-b border-gray-200 py-4 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-            <div class="flex items-center justify-center space-x-3 p-2">
-                <i class="fa-solid fa-truck-fast text-2xl text-brand-red"></i>
-                <div class="text-left">
-                    <h4 class="font-bold text-xs md:text-sm">Envíos en el día</h4>
-                    <p class="text-[11px] text-gray-500">Entregamos tu pedido de inmediato</p>
-                </div>
-            </div>
-            <div class="flex items-center justify-center space-x-3 p-2">
-                <i class="fa-solid fa-credit-card text-2xl text-brand-red"></i>
-                <div class="text-left">
-                    <h4 class="font-bold text-xs md:text-sm">10% Descuento Transferencia</h4>
-                    <p class="text-[11px] text-gray-500">Ahorro inmediato en tu pago</p>
-                </div>
-            </div>
-            <div class="flex items-center justify-center space-x-3 p-2">
-                <i class="fa-solid fa-percent text-2xl text-brand-red"></i>
-                <div class="text-left">
-                    <h4 class="font-bold text-xs md:text-sm">Asesoramiento Técnico</h4>
-                    <p class="text-[11px] text-gray-500">Consultá compatibilidad por WhatsApp</p>
-                </div>
-            </div>
-            <div class="flex items-center justify-center space-x-3 p-2">
-                <i class="fa-solid fa-headset text-2xl text-brand-red"></i>
-                <div class="text-left">
-                    <h4 class="font-bold text-xs md:text-sm">Redes Sociales</h4>
-                    <p class="text-[11px] text-gray-500">Consultá nuestras redes para estar al tanto</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- MAIN CATALOG SECTION -->
-    <main id="catalogo" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1">
-        
-        <!-- Filter Bar & Heading -->
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
             <div>
-                <h2 class="text-2xl font-black text-gray-900 uppercase tracking-tight">Productos Destacados</h2>
-                <p class="text-xs text-gray-500">Mostrando repuestos de alta durabilidad y repuestos originales/alternativos homologados.</p>
+                <h2 class="text-2xl font-black text-gray-900 uppercase tracking-tight">Lista de Precios</h2>
+                <p id="loadingStatus" class="text-xs text-brand-accent font-semibold mt-1">⏳ Cargando productos...</p>
             </div>
-
-            <!-- Filter Badges -->
-            <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-2 md:pb-0">
-                <span class="text-xs font-semibold text-gray-500 whitespace-nowrap">Filtrar:</span>
-                <button data-filter="all" class="filter-btn active bg-brand-dark text-white px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors">
-                    Todos
-                </button>
-                <button data-filter="motor" class="filter-btn bg-gray-200 text-gray-700 hover:bg-gray-300 px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors">
-                    Motor
-                </button>
-                <button data-filter="transmision" class="filter-btn bg-gray-200 text-gray-700 hover:bg-gray-300 px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors">
-                    Transmisión
-                </button>
-                <button data-filter="cascos" class="filter-btn bg-gray-200 text-gray-700 hover:bg-gray-300 px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors">
-                    Cascos
-                </button>
-                <button data-filter="aceites" class="filter-btn bg-gray-200 text-gray-700 hover:bg-gray-300 px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors">
-                    Aceites
-                </button>
-                <button data-filter="electricidad" class="filter-btn bg-gray-200 text-gray-700 hover:bg-gray-300 px-3 py-1.5 rounded-full text-xs font-medium whitespace-nowrap transition-colors">
-                    Electricidad
-                </button>
+            <div id="categoryFilters" class="flex flex-wrap gap-2">
+                <button onclick="filterCategory('all')" class="cat-btn bg-brand-dark text-white text-xs px-3 py-1.5 rounded-lg font-bold">Todos</button>
+                <button onclick="filterCategory('Electricidad')" class="cat-btn bg-white text-gray-700 border border-gray-300 text-xs px-3 py-1.5 rounded-lg font-bold hover:bg-gray-50">Electricidad</button>
+                <button onclick="filterCategory('Motor')" class="cat-btn bg-white text-gray-700 border border-gray-300 text-xs px-3 py-1.5 rounded-lg font-bold hover:bg-gray-50">Motor</button>
+                <button onclick="filterCategory('Transmisión')" class="cat-btn bg-white text-gray-700 border border-gray-300 text-xs px-3 py-1.5 rounded-lg font-bold hover:bg-gray-50">Transmisión</button>
+                <button onclick="filterCategory('Frenos')" class="cat-btn bg-white text-gray-700 border border-gray-300 text-xs px-3 py-1.5 rounded-lg font-bold hover:bg-gray-50">Frenos</button>
+                <button onclick="filterCategory('Cables')" class="cat-btn bg-white text-gray-700 border border-gray-300 text-xs px-3 py-1.5 rounded-lg font-bold hover:bg-gray-50">Cables</button>
+                <button onclick="filterCategory('Accesorios')" class="cat-btn bg-white text-gray-700 border border-gray-300 text-xs px-3 py-1.5 rounded-lg font-bold hover:bg-gray-50">Accesorios</button>
+                <button onclick="filterCategory('Rulemanes')" class="cat-btn bg-white text-gray-700 border border-gray-300 text-xs px-3 py-1.5 rounded-lg font-bold hover:bg-gray-50">Rulemanes</button>
             </div>
         </div>
 
-        <!-- PRODUCTS GRID -->
-        <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Dynamically populated via JavaScript -->
-        </div>
-
+        <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
     </main>
 
-    <!-- WHOLESALE / MAYORISTA SPECIAL BANNER -->
-    <section id="wholesaleSection" class="bg-gradient-to-r from-gray-900 via-brand-gray to-gray-900 text-white py-12 border-t border-b border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-8 items-center">
-            <div class="space-y-4">
-                <span class="bg-amber-500 text-gray-900 text-xs font-bold px-3 py-1 rounded uppercase">¿Tenes Taller o Repuestera?</span>
-                <h3 class="text-2xl md:text-3xl font-extrabold">ACCEDÉ A NUESTRA LISTA MAYORISTA CON CUENTA CORRIENTE</h3>
-                <ul class="space-y-2 text-sm text-gray-300">
-                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-red"></i> Descuentos por volumen hasta un 35% en repuestos seleccionados.</li>
-                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-red"></i> Lista Cuenta Corriente a 30 días para clientes registrados.</li>
-                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-red"></i> Descuento del 15% adicional pagando contado / dentro de 15 días.</li>
-                    <li class="flex items-center gap-2"><i class="fa-solid fa-check text-brand-red"></i> Envíos prioritarios a todo el país para talleres mecánicos.</li>
-                </ul>
-                <button id="openWholesaleModalBtn" class="bg-amber-500 hover:bg-amber-400 text-gray-950 font-extrabold px-6 py-3 rounded-lg text-sm uppercase transition-colors shadow-lg">
-                    Registrarme como Cliente Mayorista
-                </button>
-            </div>
-            <div class="bg-gray-800/80 p-6 rounded-xl border border-gray-700 shadow-inner">
-                <h4 class="font-bold text-lg mb-4 text-white">Solicitá el Catálogo Mayorista PDF</h4>
-                <form id="wholesaleForm" class="space-y-3">
-                    <input type="text" placeholder="Nombre de la Repuestera / Taller" required class="w-full bg-gray-900 border border-gray-700 rounded px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-amber-500">
-                    <input type="text" placeholder="CUIT / Localidad / Provincia" required class="w-full bg-gray-900 border border-gray-700 rounded px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-amber-500">
-                    <input type="tel" placeholder="Teléfono / WhatsApp de contacto" required class="w-full bg-gray-900 border border-gray-700 rounded px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-amber-500">
-                    <button type="submit" class="w-full bg-brand-red hover:bg-brand-reddark text-white font-bold py-2.5 rounded text-sm transition-colors">
-                        Enviar Solicitud
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- BRANDS MARQUEE -->
-    <section class="bg-white py-8 border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6">Trabajamos con las mejores marcas del mercado</p>
-            <div class="flex flex-wrap items-center justify-center gap-8 md:gap-14 opacity-75 font-black text-xl text-gray-600">
-                <span>NGK</span>
-                <span>CASTROL</span>
-                <span>CHOHO</span>
-                <span>HAWK</span>
-                <span>LS2</span>
-                <span>KATANA</span>
-                <span>MOTUL</span>
-                <span>MAHLE</span>
-                <span>PIRELLI</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="bg-brand-dark text-gray-400 text-xs">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
-            <!-- Col 1: Store info -->
-            <div class="space-y-3">
-                <div class="flex items-center space-x-2">
-                    <div class="bg-brand-red text-white p-1.5 rounded font-black text-lg italic">MMS</div>
-                    <span class="font-extrabold text-lg text-white tracking-tight">MI MOTO<span class="text-brand-red">STORE</span></span>
-                </div>
-                <p class="text-gray-400 leading-relaxed">
-                    Especialistas en repuestos, accesorios e indumentaria para motos en Argentina. Distribución mayorista y minorista con envío a todo el país.
-                </p>
-                <div class="flex space-x-3 text-lg text-gray-300">
-                    <a href="#" class="hover:text-brand-red"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="#" class="hover:text-brand-red"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" class="hover:text-brand-red"><i class="fa-brands fa-whatsapp"></i></a>
-                </div>
-            </div>
-
-            <!-- Col 2: Quick Links -->
-            <div>
-                <h4 class="text-white font-bold text-sm uppercase mb-3">Navegación</h4>
-                <ul class="space-y-2">
-                    <li><a href="#" class="hover:text-white transition-colors">Inicio</a></li>
-                    <li><a href="#catalogo" class="hover:text-white transition-colors">Productos y Repuestos</a></li>
-                    <li><a href="#wholesaleSection" class="hover:text-white transition-colors">Venta Mayorista</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Formas de Pago & Envíos</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Preguntas Frecuentes</a></li>
-                </ul>
-            </div>
-
-            <!-- Col 3: Customer Care -->
-            <div>
-                <h4 class="text-white font-bold text-sm uppercase mb-3">Contacto & Depósito</h4>
-                <ul class="space-y-2">
-                    <li><i class="fa-solid fa-location-dot text-brand-red mr-2"></i> Buenos Aires / Argentina</li>
-                    <li><i class="fa-brands fa-whatsapp text-emerald-500 mr-2"></i> +54 9 11 0000-0000</li>
-                    <li><i class="fa-solid fa-envelope text-brand-red mr-2"></i> ventas@mimotostore.com.ar</li>
-                    <li><i class="fa-regular fa-clock text-brand-red mr-2"></i> Lunes a Viernes 9 a 18 hs</li>
-                </ul>
-            </div>
-
-            <!-- Col 4: Argentina E-Commerce Badges -->
-            <div class="space-y-3">
-                <h4 class="text-white font-bold text-sm uppercase mb-3">Seguridad & AFIP</h4>
-                <div class="bg-gray-800 p-3 rounded border border-gray-700 flex items-center gap-3">
-                    <div class="bg-white text-gray-900 font-bold p-2 text-center rounded text-[10px] leading-tight">
-                        DATA<br>FISCAL
-                    </div>
-                    <div>
-                        <p class="font-bold text-white text-[11px]">Compra 100% Protegida</p>
-                        <p class="text-[10px]">AFIP Formulario 960/D</p>
-                    </div>
-                </div>
-                <button class="w-full bg-gray-800 hover:bg-gray-700 text-gray-300 py-2 border border-gray-700 rounded text-[11px] font-medium transition-colors">
-                    Defensa del Consumidor
-                </button>
-            </div>
-        </div>
-
-        <div class="bg-gray-950 py-4 border-t border-gray-800 text-center text-gray-500 text-[11px]">
-            <p>© 2026 Mi Moto Store Argentina. Todos los derechos reservados. Precios expresados en Pesos Argentinos (ARS).</p>
-        </div>
+    <footer class="bg-brand-dark text-gray-400 text-xs py-6 text-center mt-auto">
+        <p>© 2026 C&V Distribuidora Moto Repuestos · La Rioja Capital</p>
     </footer>
 
-    <!-- CART SLIDE-OVER DRAWER -->
-    <div id="cartDrawer" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden transition-opacity">
+    <div id="cartDrawer" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden">
         <div class="fixed inset-y-0 right-0 max-w-full flex">
-            <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col">
-                <!-- Header -->
-                <div class="p-4 bg-brand-dark text-white flex justify-between items-center">
-                    <div class="flex items-center space-x-2">
-                        <i class="fa-solid fa-cart-shopping text-brand-red"></i>
-                        <h3 class="font-bold text-lg">Tu Carrito de Compras</h3>
+            <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col p-4 justify-between">
+                <div>
+                    <div class="flex justify-between items-center border-b pb-3">
+                        <h3 class="font-bold text-lg text-gray-900">Tu Carrito de Pedido</h3>
+                        <button id="closeCartBtn" class="text-gray-500 font-bold text-lg">✕</button>
                     </div>
-                    <button id="closeCartBtn" class="text-gray-400 hover:text-white p-1">
-                        <i class="fa-solid fa-xmark text-xl"></i>
-                    </button>
+                    <div id="cartItemsContainer" class="py-4 space-y-3 max-h-[60vh] overflow-y-auto"></div>
                 </div>
-
-                <!-- Items Container -->
-                <div id="cartItemsContainer" class="flex-1 overflow-y-auto p-4 space-y-4">
-                    <!-- Populated via JavaScript -->
-                </div>
-
-                <!-- Footer Summary -->
-                <div class="p-4 bg-gray-50 border-t border-gray-200 space-y-3">
-                    <!-- Shipping Simulator -->
-                    <div class="bg-white p-3 rounded border border-gray-200 text-xs space-y-2">
-                        <label class="font-bold text-gray-700 block">Calcular costo de envío en Argentina:</label>
-                        <div class="flex gap-2">
-                            <input type="text" id="shippingCp" placeholder="Código Postal (ej: 1425)" class="flex-1 border border-gray-300 rounded px-2 py-1 text-xs">
-                            <button id="calcShippingBtn" class="bg-gray-800 text-white px-3 py-1 rounded font-semibold hover:bg-black">Calcular</button>
-                        </div>
-                        <div id="shippingResult" class="hidden text-[11px] text-emerald-600 font-semibold"></div>
-                    </div>
-
-                    <!-- Price breakdown -->
-                    <div class="space-y-1.5 text-xs">
-                        <div class="flex justify-between text-gray-600">
-                            <span>Subtotal (Precio Lista):</span>
-                            <span id="cartSubtotal">$0</span>
-                        </div>
-                        <div class="flex justify-between text-emerald-600 font-bold bg-emerald-50 p-2 rounded">
-                            <span>Pago por Transferencia / Efectivo (-15%):</span>
-                            <span id="cartTransferTotal">$0</span>
-                        </div>
-                        <div class="flex justify-between text-gray-800 font-extrabold text-sm pt-1 border-t">
+                <div>
+                    <div class="border-t pt-3 space-y-2">
+                        <div class="flex justify-between font-bold text-gray-900 text-sm">
                             <span>Total Estimado:</span>
                             <span id="cartTotal">$0</span>
                         </div>
-                    </div>
-
-                    <div class="space-y-2 pt-1">
-                        <button id="checkoutBtn" class="w-full bg-brand-red hover:bg-brand-reddark text-white font-bold py-3 rounded-lg shadow-md uppercase tracking-wider text-xs transition-colors flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-lock"></i> Finalizar Compra
-                        </button>
-                        <button id="whatsappCheckoutBtn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-lg text-xs transition-colors flex items-center justify-center gap-2">
-                            <i class="fa-brands fa-whatsapp text-sm"></i> Comprar directo por WhatsApp
+                        <button id="whatsappCheckoutBtn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg text-xs flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-sm"></i> Enviar Pedido por WhatsApp
                         </button>
                     </div>
                 </div>
@@ -448,516 +115,149 @@
         </div>
     </div>
 
-    <!-- QUICK VIEW PRODUCT MODAL -->
-    <div id="productModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative border border-gray-100">
-            <button id="closeModalBtn" class="absolute top-4 right-4 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-full w-8 h-8 flex items-center justify-center z-10">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-            <div id="modalContent" class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Injected dynamically -->
-            </div>
-        </div>
-    </div>
-
-    <!-- TOAST NOTIFICATION -->
-    <div id="toast" class="fixed bottom-5 right-5 bg-brand-dark text-white px-4 py-3 rounded-xl shadow-2xl z-50 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center space-x-3 border border-gray-700">
-        <div class="bg-emerald-500 text-white p-1 rounded-full text-xs">
-            <i class="fa-solid fa-check"></i>
-        </div>
-        <span id="toastMessage" class="text-xs font-semibold">Producto agregado al carrito</span>
-    </div>
-
-    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // MOCK PRODUCTS DATA (Representative of Mi Moto Store catalogue)
-        const products = [
-            {
-                id: 1,
-                name: "Kit de Cilindro y Pistón Completo 150cc",
-                category: "motor",
-                brand: "CATIMOTO",
-                sku: "CIL-150-TITAN",
-                price: 74500,
-                stock: 12,
-                compatibility: ["Honda CG Titan 150", "Honda XR 150", "Motomel Skua 150"],
-                imageIcon: "fa-engine-warning",
-                description: "Kit de cilindro, pistón, aros, perno y seguros de alta compresión. Aleación de aluminio tratada térmicamente para mayor vida útil y estanqueidad."
-            },
-            {
-                id: 2,
-                name: "Kit Transmisión Completo 428H x 118L",
-                category: "transmision",
-                brand: "CHOHO",
-                sku: "TRANS-428-CHOHO",
-                price: 42800,
-                stock: 25,
-                compatibility: ["Yamaha YBR 125", "Honda Wave 110", "Corven Triax 150"],
-                imageIcon: "fa-gears",
-                description: "Kit reforzado de transmisión con cadena 428H dorada autolubricada, corona de acero 1045 y piñón mecanizado CNC de alta precisión."
-            },
-            {
-                id: 3,
-                name: "Casco Integrale Hawk 721 Route 66 Homologado",
-                category: "cascos",
-                brand: "HAWK",
-                sku: "CAS-HAWK-721",
-                price: 115000,
-                stock: 8,
-                compatibility: ["Universal - Talles S, M, L, XL"],
-                imageIcon: "fa-helmet-safety",
-                description: "Casco integral homologado con visera anti-scratch, interior desmontable y lavable. Excelente ventilación aerodinámica."
-            },
-            {
-                id: 4,
-                name: "Aceite Castrol Power 1 4T 15W-50 Semisintético (1L)",
-                category: "aceites",
-                brand: "CASTROL",
-                sku: "ACE-CAS-P1-1L",
-                price: 18500,
-                stock: 50,
-                compatibility: ["Motores 4T Multimarca"],
-                imageIcon: "fa-oil-can",
-                description: "Lubricante premium para motores de 4 tiempos con tecnología Power Release. Optimiza la aceleración y protege el embrague."
-            },
-            {
-                id: 5,
-                name: "CDI / Caja Negra Racing con Corte Regulable",
-                category: "electricidad",
-                brand: "PIETCARD",
-                sku: "ELE-CDI-RAC",
-                price: 29400,
-                stock: 15,
-                compatibility: ["Honda Wave 110 S", "Motomel B110", "Gilera Smash 110"],
-                imageIcon: "fa-bolt",
-                description: "CDI digital con curva de avance optimizada para mayor rendimiento en baja y alta revolución."
-            },
-            {
-                id: 6,
-                name: "Juego de Puños Deportivos de Aluminio + Goma",
-                category: "accesorios",
-                brand: "PRO-GRIP",
-                sku: "ACC-PUN-ALU",
-                price: 14200,
-                stock: 30,
-                compatibility: ["Manubrio Standard 22mm (7/8)"],
-                imageIcon: "fa-hand-back-fist",
-                description: "Puños ergonómicos antideslizantes de alta resistencia con contrapesos de aluminio anodizado incluidos."
-            },
-            {
-                id: 7,
-                name: "Disco de Freno Delantero Veteado Deportivo",
-                category: "transmision",
-                brand: "DERX",
-                sku: "FRE-DISC-150",
-                price: 36900,
-                stock: 9,
-                compatibility: ["Honda Titan 150", "Rouser 200 NS"],
-                imageIcon: "fa-circle-dot",
-                description: "Disco de freno de acero inoxidable disipador de calor para un frenado preciso y seguro en todo tipo de clima."
-            },
-            {
-                id: 8,
-                name: "Carburador Completo 26mm con Cebador Manual",
-                category: "motor",
-                brand: "KISHIO",
-                sku: "CARB-26MM",
-                price: 49800,
-                stock: 18,
-                compatibility: ["Motos 125cc a 150cc Varilleras"],
-                imageIcon: "fa-gears",
-                description: "Carburador reglamentario listo para instalar. Proporciona una mezcla estequiométrica fluida sin tirones."
-            }
-        ];
+        // ⚠️ PEGA AQUÍ LA URL DE TU APLICACIÓN WEB DE GOOGLE APPS SCRIPT
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzi2zPycPgWMY93JTpSYUPCyp9SqGAosQb-c5QlzjVgCpsqKOXNUhEs0GM91OIz37ri/exec";
 
-        // STATE MANAGEMENT
-        let cart = JSON.parse(localStorage.getItem('mms_cart') || '[]');
-        let currentFilter = 'all';
+        let products = [];
+        let currentCategory = 'all';
+        let cart = JSON.parse(localStorage.getItem('cv_cart') || '[]');
 
-        // DOM ELEMENTS
-        const productsGrid = document.getElementById('productsGrid');
-        const cartDrawer = document.getElementById('cartDrawer');
-        const cartDrawerBtn = document.getElementById('cartDrawerBtn');
-        const closeCartBtn = document.getElementById('closeCartBtn');
-        const cartCountBadge = document.getElementById('cartCountBadge');
-        const cartItemsContainer = document.getElementById('cartItemsContainer');
-        const cartSubtotal = document.getElementById('cartSubtotal');
-        const cartTransferTotal = document.getElementById('cartTransferTotal');
-        const cartTotal = document.getElementById('cartTotal');
-        const productModal = document.getElementById('productModal');
-        const closeModalBtn = document.getElementById('closeModalBtn');
-        const modalContent = document.getElementById('modalContent');
-        const searchInput = document.getElementById('searchInput');
-        const searchResults = document.getElementById('searchResults');
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        const closeMobileMenu = document.getElementById('closeMobileMenu');
-
-        // FORMAT CURRENCY (ARGENTINA PESOS)
         function formatARS(amount) {
             return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', maximumFractionDigits: 0 }).format(amount);
         }
 
-        // RENDER PRODUCTS
+        async function fetchProducts() {
+            const statusEl = document.getElementById('loadingStatus');
+            try {
+                if(WEB_APP_URL.includes("TU_URL")) {
+                    statusEl.textContent = "⚠️ Configura la URL de Google Apps Script en el código JS.";
+                    return;
+                }
+                const response = await fetch(WEB_APP_URL);
+                const data = await response.json();
+                products = data;
+                statusEl.textContent = `✅ ${products.length} productos sincronizados desde Google Sheets.`;
+                renderProducts(products);
+            } catch (error) {
+                console.error("Error al cargar:", error);
+                statusEl.textContent = "❌ Error al conectar con la planilla de Google Sheets.";
+            }
+        }
+
         function renderProducts(items) {
-            productsGrid.innerHTML = '';
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
             
             if (items.length === 0) {
-                productsGrid.innerHTML = `
-                    <div class="col-span-full py-12 text-center text-gray-500">
-                        <i class="fa-solid fa-box-open text-4xl mb-3 text-gray-400"></i>
-                        <p class="font-bold">No se encontraron productos en esta categoría.</p>
-                        <p class="text-xs">Intenta buscar otro repuesto o cambiar de filtro.</p>
-                    </div>
-                `;
+                grid.innerHTML = `<p class="col-span-full text-center text-gray-500 py-10">No se encontraron productos.</p>`;
                 return;
             }
 
             items.forEach(prod => {
-                const transferPrice = prod.price * 0.85; // 15% OFF
-                const installmentPrice = (prod.price / 6).toFixed(0);
+                const price = Number(prod.price) || 0;
+                const stock = Number(prod.stock) || 0;
+                const details = prod.details ? `<span class="text-[11px] text-brand-accent block">Detalle: ${prod.details}</span>` : '';
 
                 const card = document.createElement('div');
-                card.className = "bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col justify-between group";
-                
+                card.className = "bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between";
                 card.innerHTML = `
-                    <div class="p-4 relative">
-                        <!-- Badges -->
-                        <div class="flex flex-col gap-1 absolute top-3 left-3 z-10">
-                            <span class="bg-emerald-600 text-white font-extrabold text-[10px] px-2 py-0.5 rounded uppercase shadow">
-                                15% OFF TRANSF.
-                            </span>
-                            <span class="bg-gray-900 text-amber-400 font-extrabold text-[10px] px-2 py-0.5 rounded uppercase">
-                                6X SIN INTERÉS
-                            </span>
-                        </div>
-
-                        <!-- Product Preview SVG/Icon Box -->
-                        <div class="w-full h-44 bg-gray-50 rounded-lg flex items-center justify-center text-gray-400 group-hover:scale-105 transition-transform duration-300 relative cursor-pointer" onclick="openProductModal(${prod.id})">
-                            <i class="fa-solid ${prod.imageIcon} text-6xl text-brand-dark opacity-80"></i>
-                            <span class="absolute bottom-2 right-2 bg-white/90 text-gray-600 text-[10px] px-2 py-0.5 rounded font-mono">SKU: ${prod.sku}</span>
-                        </div>
-
-                        <!-- Info -->
-                        <div class="mt-4 space-y-1">
-                            <span class="text-[10px] font-bold uppercase tracking-wider text-brand-red">${prod.brand}</span>
-                            <h3 class="font-bold text-gray-900 text-sm leading-snug cursor-pointer hover:text-brand-red transition-colors" onclick="openProductModal(${prod.id})">
-                                ${prod.name}
-                            </h3>
-                        </div>
-
-                        <!-- Pricing Section -->
-                        <div class="mt-4 pt-3 border-t border-gray-100 space-y-1">
-                            <div class="flex items-baseline justify-between">
-                                <span class="text-xs text-gray-400 line-through">${formatARS(prod.price * 1.12)}</span>
-                                <span class="text-xs text-gray-500 font-medium">Lista: <strong class="text-gray-800">${formatARS(prod.price)}</strong></span>
-                            </div>
-                            <div class="bg-emerald-50 p-2 rounded-lg border border-emerald-100">
-                                <span class="text-[10px] font-bold text-emerald-700 block uppercase">Precio Transferencia / Efectivo</span>
-                                <span class="text-lg font-black text-emerald-600">${formatARS(transferPrice)}</span>
-                            </div>
-                            <p class="text-[11px] text-gray-500">o 6 cuotas sin interés de <strong>${formatARS(installmentPrice)}</strong></p>
+                    <div class="p-4">
+                        <span class="text-[10px] font-bold uppercase tracking-wider text-brand-red bg-red-50 px-2 py-0.5 rounded">${prod.category_name || 'GENERAL'}</span>
+                        <h3 class="font-bold text-gray-900 text-sm mt-2">${prod.name}</h3>
+                        ${details}
+                        <p class="text-[11px] text-gray-400 mt-1">Stock disponible: ${stock}u.</p>
+                        <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
+                            <span class="text-lg font-black text-gray-900">${formatARS(price)}</span>
                         </div>
                     </div>
-
-                    <!-- Action Footer -->
-                    <div class="p-4 pt-0 grid grid-cols-2 gap-2">
-                        <button onclick="openProductModal(${prod.id})" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs font-semibold py-2 rounded transition-colors">
-                            <i class="fa-regular fa-eye mr-1"></i> Detalle
-                        </button>
-                        <button onclick="addToCart(${prod.id})" class="w-full bg-brand-red hover:bg-brand-reddark text-white text-xs font-bold py-2 rounded transition-colors shadow-sm">
-                            <i class="fa-solid fa-cart-plus mr-1"></i> Agregar
+                    <div class="p-4 pt-0">
+                        <button onclick="addToCart('${prod.id}')" class="w-full bg-brand-red hover:bg-brand-reddark text-white text-xs font-bold py-2.5 rounded-lg transition-colors flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-cart-plus"></i> Agregar
                         </button>
                     </div>
                 `;
-                productsGrid.appendChild(card);
+                grid.appendChild(card);
             });
         }
 
-        // FILTER LOGIC
-        document.querySelectorAll('.filter-btn, .nav-cat-btn, .mobile-cat-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const category = e.currentTarget.getAttribute('data-filter') || e.currentTarget.getAttribute('data-category');
-                
-                // Update active buttons
-                document.querySelectorAll('.filter-btn').forEach(b => {
-                    if (b.getAttribute('data-filter') === category) {
-                        b.classList.add('bg-brand-dark', 'text-white');
-                        b.classList.remove('bg-gray-200', 'text-gray-700');
-                    } else {
-                        b.classList.remove('bg-brand-dark', 'text-white');
-                        b.classList.add('bg-gray-200', 'text-gray-700');
-                    }
-                });
-
-                if (category === 'all') {
-                    renderProducts(products);
-                } else {
-                    const filtered = products.filter(p => p.category === category);
-                    renderProducts(filtered);
-                }
-
-                if (mobileMenu) mobileMenu.classList.add('hidden');
-            });
-        });
-
-        // SEARCH FUNCTIONALITY
-        function handleSearch(query) {
-            query = query.toLowerCase().trim();
-            if (!query) {
-                searchResults.classList.add('hidden');
-                return;
-            }
-
-            const matches = products.filter(p => 
-                p.name.toLowerCase().includes(query) || 
-                p.brand.toLowerCase().includes(query) ||
-                p.sku.toLowerCase().includes(query) ||
-                p.compatibility.some(c => c.toLowerCase().includes(query))
-            );
-
-            if (matches.length > 0) {
-                searchResults.innerHTML = matches.map(p => `
-                    <div class="p-3 border-b border-gray-100 hover:bg-gray-50 flex items-center justify-between cursor-pointer" onclick="openProductModal(${p.id}); searchResults.classList.add('hidden');">
-                        <div class="flex items-center space-x-3">
-                            <i class="fa-solid ${p.imageIcon} text-brand-red text-lg"></i>
-                            <div>
-                                <p class="font-bold text-xs text-gray-900">${p.name}</p>
-                                <p class="text-[10px] text-gray-500">${p.brand} · Compatible: ${p.compatibility[0]}</p>
-                            </div>
-                        </div>
-                        <span class="font-black text-xs text-emerald-600">${formatARS(p.price * 0.85)}</span>
-                    </div>
-                `).join('');
-                searchResults.classList.remove('hidden');
-            } else {
-                searchResults.innerHTML = `<div class="p-4 text-center text-xs text-gray-500">No se encontraron resultados para "${query}"</div>`;
-                searchResults.classList.remove('hidden');
-            }
-        }
-
-        searchInput.addEventListener('input', (e) => handleSearch(e.target.value));
-        document.getElementById('mobileSearchInput').addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase().trim();
-            if (query) {
-                const filtered = products.filter(p => p.name.toLowerCase().includes(query) || p.brand.toLowerCase().includes(query));
-                renderProducts(filtered);
-            } else {
+        function filterCategory(cat) {
+            currentCategory = cat;
+            if (cat === 'all') {
                 renderProducts(products);
+            } else {
+                const filtered = products.filter(p => p.category_name && p.category_name.toLowerCase() === cat.toLowerCase());
+                renderProducts(filtered);
             }
-        });
+        }
 
-        // CART LOGIC
-        function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            const existing = cart.find(item => item.id === productId);
-
+        function addToCart(id) {
+            const prod = products.find(p => String(p.id) === String(id));
+            if (!prod) return;
+            const existing = cart.find(item => String(item.id) === String(id));
             if (existing) {
                 existing.quantity += 1;
             } else {
-                cart.push({ ...product, quantity: 1 });
+                cart.push({ ...prod, price: Number(prod.price), quantity: 1 });
             }
-
             updateCartUI();
-            showToast(`Agregado: ${product.name}`);
-        }
-
-        function removeFromCart(productId) {
-            cart = cart.filter(item => item.id !== productId);
-            updateCartUI();
-        }
-
-        function changeQuantity(productId, delta) {
-            const item = cart.find(i => i.id === productId);
-            if (item) {
-                item.quantity += delta;
-                if (item.quantity <= 0) {
-                    removeFromCart(productId);
-                } else {
-                    updateCartUI();
-                }
-            }
         }
 
         function updateCartUI() {
-            localStorage.setItem('mms_cart', JSON.stringify(cart));
+            localStorage.setItem('cv_cart', JSON.stringify(cart));
+            document.getElementById('cartCountBadge').textContent = cart.reduce((a, c) => a + c.quantity, 0);
             
-            // Badge
-            const totalCount = cart.reduce((acc, item) => acc + item.quantity, 0);
-            cartCountBadge.textContent = totalCount;
+            const container = document.getElementById('cartItemsContainer');
+            container.innerHTML = '';
+            let total = 0;
 
-            // Render Items
-            cartItemsContainer.innerHTML = '';
-
-            if (cart.length === 0) {
-                cartItemsContainer.innerHTML = `
-                    <div class="h-64 flex flex-col items-center justify-center text-center text-gray-400">
-                        <i class="fa-solid fa-cart-arrow-down text-5xl mb-3"></i>
-                        <p class="font-bold text-gray-600">Tu carrito está vacío</p>
-                        <p class="text-xs">¡Agregá repuestos para aprovechar el 10% OFF en transferencia!</p>
-                    </div>
-                `;
-                cartSubtotal.textContent = formatARS(0);
-                cartTransferTotal.textContent = formatARS(0);
-                cartTotal.textContent = formatARS(0);
-                return;
+            if(cart.length === 0) {
+                container.innerHTML = `<p class="text-xs text-gray-400 text-center py-6">El carrito está vacío</p>`;
             }
-
-            let subtotal = 0;
 
             cart.forEach(item => {
-                const itemTotal = item.price * item.quantity;
-                subtotal += itemTotal;
-
-                const cartItemEl = document.createElement('div');
-                cartItemEl.className = "flex items-center gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200";
-                cartItemEl.innerHTML = `
-                    <div class="w-12 h-12 bg-white rounded flex items-center justify-center text-brand-dark border">
-                        <i class="fa-solid ${item.imageIcon} text-xl"></i>
-                    </div>
-                    <div class="flex-1">
-                        <h4 class="font-bold text-xs text-gray-800 line-clamp-1">${item.name}</h4>
-                        <span class="text-[11px] text-gray-500">${formatARS(item.price)} c/u</span>
-                        <div class="flex items-center gap-2 mt-1">
-                            <button onclick="changeQuantity(${item.id}, -1)" class="w-5 h-5 bg-gray-200 rounded text-xs font-bold">-</button>
-                            <span class="text-xs font-bold">${item.quantity}</span>
-                            <button onclick="changeQuantity(${item.id}, 1)" class="w-5 h-5 bg-gray-200 rounded text-xs font-bold">+</button>
+                total += item.price * item.quantity;
+                container.innerHTML += `
+                    <div class="flex justify-between items-center text-xs border-b pb-2">
+                        <div>
+                            <span class="font-bold block">${item.name}</span>
+                            <span class="text-gray-500">Cantidad: ${item.quantity}</span>
                         </div>
-                    </div>
-                    <div class="text-right">
-                        <span class="font-bold text-xs text-gray-900 block">${formatARS(itemTotal)}</span>
-                        <button onclick="removeFromCart(${item.id})" class="text-red-500 hover:text-red-700 text-xs mt-1">
-                            <i class="fa-regular fa-trash-can"></i>
-                        </button>
-                    </div>
-                `;
-                cartItemsContainer.appendChild(cartItemEl);
+                        <strong>${formatARS(item.price * item.quantity)}</strong>
+                    </div>`;
             });
 
-            const transferPrice = subtotal * 0.85;
-
-            cartSubtotal.textContent = formatARS(subtotal);
-            cartTransferTotal.textContent = formatARS(transferPrice);
-            cartTotal.textContent = formatARS(subtotal);
+            document.getElementById('cartTotal').textContent = formatARS(total);
         }
 
-        // QUICK VIEW MODAL
-        function openProductModal(productId) {
-            const prod = products.find(p => p.id === productId);
-            if (!prod) return;
-
-            const transferPrice = prod.price * 0.85;
-
-            modalContent.innerHTML = `
-                <div class="bg-gray-50 p-8 rounded-xl flex items-center justify-center text-gray-700 border border-gray-100">
-                    <i class="fa-solid ${prod.imageIcon} text-8xl text-brand-dark"></i>
-                </div>
-                <div class="space-y-4">
-                    <div>
-                        <span class="bg-gray-900 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase">${prod.brand}</span>
-                        <h2 class="text-xl font-black text-gray-900 mt-1">${prod.name}</h2>
-                        <p class="text-xs text-gray-400 font-mono mt-0.5">Código Artículo: ${prod.sku}</p>
-                    </div>
-
-                    <p class="text-xs text-gray-600 leading-relaxed">${prod.description}</p>
-
-                    <!-- Compatibility Box -->
-                    <div class="bg-amber-50 p-3 rounded-lg border border-amber-200">
-                        <h4 class="font-bold text-xs text-amber-900 flex items-center gap-1.5">
-                            <i class="fa-solid fa-circle-check text-amber-600"></i> Modelos Compatibles:
-                        </h4>
-                        <ul class="text-xs text-amber-800 list-disc list-inside mt-1 space-y-0.5">
-                            ${prod.compatibility.map(c => `<li>${c}</li>`).join('')}
-                        </ul>
-                    </div>
-
-                    <!-- Price breakdown -->
-                    <div class="space-y-1">
-                        <div class="text-xs text-gray-400">Precio Lista: <span class="line-through">${formatARS(prod.price * 1.1)}</span></div>
-                        <div class="text-2xl font-black text-emerald-600">${formatARS(transferPrice)} <span class="text-xs font-normal text-gray-500">Contado / Transferencia</span></div>
-                        <div class="text-xs text-gray-500">Precio Regular Tarjeta: <strong>${formatARS(prod.price)}</strong> en 6 cuotas de ${formatARS(prod.price / 6)}</div>
-                    </div>
-
-                    <div class="flex items-center space-x-2 text-xs text-emerald-600 font-bold">
-                        <i class="fa-solid fa-boxes-stroke"></i>
-                        <span>Stock Disponible: ${prod.stock} unidades en depósito</span>
-                    </div>
-
-                    <button onclick="addToCart(${prod.id}); productModal.classList.add('hidden');" class="w-full bg-brand-red hover:bg-brand-reddark text-white font-extrabold py-3 rounded-xl uppercase tracking-wider text-sm transition-colors shadow-lg">
-                        <i class="fa-solid fa-cart-plus mr-2"></i> Agregar al Carrito
-                    </button>
-                </div>
-            `;
-            productModal.classList.remove('hidden');
-        }
-
-        // SHIPPING CALCULATOR
-        document.getElementById('calcShippingBtn').addEventListener('click', () => {
-            const cp = document.getElementById('shippingCp').value.trim();
-            const res = document.getElementById('shippingResult');
-            if (cp.length >= 4) {
-                res.textContent = `Envío estimado a CP ${cp}: $4.800 (Llega en 48-72 hs por Andreani)`;
-                res.classList.remove('hidden');
-            } else {
-                res.textContent = `Por favor ingresá un Código Postal válido (ej: 1425).`;
-                res.classList.remove('hidden');
-            }
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const q = e.target.value.toLowerCase();
+            const filtered = products.filter(p => 
+                p.name.toLowerCase().includes(q) || 
+                (p.category_name && p.category_name.toLowerCase().includes(q)) ||
+                (p.details && p.details.toLowerCase().includes(q))
+            );
+            renderProducts(filtered);
         });
 
-        // TOAST NOTIFICATIONS
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toastMessage').textContent = msg;
-            toast.classList.remove('translate-y-20', 'opacity-0');
-            setTimeout(() => {
-                toast.classList.add('translate-y-20', 'opacity-0');
-            }, 3000);
-        }
+        document.getElementById('cartDrawerBtn').addEventListener('click', () => document.getElementById('cartDrawer').classList.remove('hidden'));
+        document.getElementById('closeCartBtn').addEventListener('click', () => document.getElementById('cartDrawer').classList.add('hidden'));
 
-        // WHATSAPP CHECKOUT
         document.getElementById('whatsappCheckoutBtn').addEventListener('click', () => {
             if (cart.length === 0) return alert('El carrito está vacío');
-            
-            let text = "Hola *Mi Moto Store*, quiero realizar el siguiente pedido:\n\n";
+            let text = "Hola C&V Distribuidora, quiero realizar el siguiente pedido:\n\n";
+            let total = 0;
             cart.forEach(i => {
-                text += `• ${i.quantity}x ${i.name} (${i.sku}) - ${formatARS(i.price * i.quantity)}\n`;
+                let sub = i.price * i.quantity;
+                total += sub;
+                text += `▪️ ${i.quantity}x ${i.name} (${formatARS(sub)})\n`;
             });
-            const subtotal = cart.reduce((acc, i) => acc + (i.price * i.quantity), 0);
-            text += `\nTotal Pago Transferencia (-15%): *${formatARS(subtotal * 0.85)}*`;
-            text += `\n\n¿Tienen disponibilidad para envío inmediato?`;
-
-            window.open(`https://wa.me/5491100000000?text=${encodeURIComponent(text)}`, '_blank');
+            text += `\n*Total Estimado: ${formatARS(total)}*`;
+            window.open(`https://wa.me/5493804883917?text=${encodeURIComponent(text)}`, '_blank');
         });
 
-        document.getElementById('checkoutBtn').addEventListener('click', () => {
-            if (cart.length === 0) return alert('El carrito está vacío');
-            alert('¡Gracias por tu compra! Redirigiendo a la pasarela de pago segura de Mercado Pago...');
-        });
-
-        // EVENT LISTENERS FOR MODALS AND DRAWER
-        cartDrawerBtn.addEventListener('click', () => cartDrawer.classList.remove('hidden'));
-        closeCartBtn.addEventListener('click', () => cartDrawer.classList.add('hidden'));
-        closeModalBtn.addEventListener('click', () => productModal.classList.add('hidden'));
-        mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.remove('hidden'));
-        closeMobileMenu.addEventListener('click', () => mobileMenu.classList.add('hidden'));
-
-        // Wholesale form submit
-        document.getElementById('wholesaleForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('¡Solicitud recibida con éxito! Un asesor de Ventas Mayoristas se contactará a la brevedad.');
-            e.target.reset();
-        });
-
-        document.getElementById('ctaWholesaleBtn').addEventListener('click', () => {
-            document.getElementById('wholesaleSection').scrollIntoView({ behavior: 'smooth' });
-        });
-        document.getElementById('openWholesaleModalBtn').addEventListener('click', () => {
-            document.getElementById('wholesaleSection').scrollIntoView({ behavior: 'smooth' });
-        });
-
-        // INITIAL RENDER
-        renderProducts(products);
+        // Inicializar
+        fetchProducts();
         updateCartUI();
     </script>
 </body>
