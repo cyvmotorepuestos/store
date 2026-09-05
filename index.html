@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C&V | Equipamiento y Repuestos para Motos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#1D4ED8',
+                            bluedark: '#1E40AF',
+                            dark: '#111827',
+                            gray: '#1F2937',
+                            light: '#F9FAFB',
+                            accent: '#F59E0B',
+                            green: '#10B981'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 font-sans text-gray-800 flex flex-col min-h-screen">
+
+    <div class="bg-brand-blue text-white text-xs md:text-sm py-2 px-4 text-center font-medium">
+        <span>🔥 <strong>C&V DISTRIBUIDORA</strong> · Encuentra todos los repuestos para tu moto</span>
+    </div>
+
+    <header class="bg-brand-dark text-white sticky top-0 z-40 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-4">
+            <div class="flex items-center space-x-3">
+                <a href="#" class="flex items-center space-x-2">
+                    <div class="bg-brand-blue text-white p-2 rounded-lg font-black text-xl italic tracking-tighter">C&V</div>
+                    <div class="flex flex-col">
+                        <span class="font-extrabold text-xl leading-none tracking-tight">C&V<span class="text-brand-blue">STORE</span></span>
+                        <span class="text-[10px] text-gray-400 font-medium tracking-wider">REPUESTOS & MOTOS</span>
+                    </div>
+                </a>
+            </div>
+
+            <div class="hidden sm:flex flex-1 max-w-xl relative">
+                <input type="text" id="searchInput" placeholder="Buscar repuesto, categoría o detalle..." 
+                    class="w-full bg-gray-800 text-white placeholder-gray-400 rounded-lg pl-4 pr-10 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-blue border border-gray-700">
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <button id="cartDrawerBtn" class="relative text-gray-300 hover:text-white flex items-center space-x-2 text-xs p-1">
+                    <div class="relative">
+                        <i class="fa-solid fa-cart-shopping text-xl md:text-2xl"></i>
+                        <span id="cartCountBadge" class="absolute -top-2 -right-2 bg-brand-blue text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                    </div>
+                    <span class="hidden md:inline">Carrito</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+            <div>
+                <h2 class="text-2xl font-black text-gray-900 uppercase tracking-tight">Lista de Precios</h2>
+                <p id="loadingStatus" class="text-xs text-brand-accent font-semibold mt-1 hidden"></p>
+            </div>
+            <div id="categoryFilters" class="flex flex-wrap gap-2">
+                <button onclick="filterCategory('all')" class="cat-btn bg-brand-dark text-white text-xs px-3 py-1.5 rounded-lg font-bold">Todos</button>
+                <button onclick="filterCategory('Electricidad')" class="cat-btn bg-white text-gray-700 border border-gray-300 text-xs px-3 py-1.5 rounded-lg font-bold hover:bg-gray-50">Electricidad</button>
+                <button onclick="filterCategory('Motor')" class="cat-btn bg-white text-gray-700 border border-gray-300 text-xs px-3 py-1.5 rounded-lg font-bold hover:bg-gray-50">Motor</button>
+                <button onclick="filterCategory('Transmisión')" class="cat-btn bg-white text-gray-700 border border-gray-300 text-xs px-3 py-1.5 rounded-lg font-bold hover:bg-gray-50">Transmisión</button>
+                <button onclick="filterCategory('Frenos')" class="cat-btn bg-white text-gray-700 border border-gray-300 text-xs px-3 py-1.5 rounded-lg font-bold hover:bg-gray-50">Frenos</button>
+                <button onclick="filterCategory('Cables')" class="cat-btn bg-white text-gray-700 border border-gray-300 text-xs px-3 py-1.5 rounded-lg font-bold hover:bg-gray-50">Cables</button>
+                <button onclick="filterCategory('Accesorios')" class="cat-btn bg-white text-gray-700 border border-gray-300 text-xs px-3 py-1.5 rounded-lg font-bold hover:bg-gray-50">Accesorios</button>
+                <button onclick="filterCategory('Rulemanes')" class="cat-btn bg-white text-gray-700 border border-gray-300 text-xs px-3 py-1.5 rounded-lg font-bold hover:bg-gray-50">Rulemanes</button>
+            </div>
+        </div>
+
+        <div id="productsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+    </main>
+
+    <footer class="bg-brand-dark text-gray-400 text-xs py-6 text-center mt-auto">
+        <p>© 2026 C&V Distribuidora Moto Repuestos · La Rioja Capital</p>
+    </footer>
+
+    <div id="cartDrawer" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden">
+        <div class="fixed inset-y-0 right-0 max-w-full flex">
+            <div class="w-screen max-w-md bg-white shadow-2xl flex flex-col p-4 justify-between">
+                <div>
+                    <div class="flex justify-between items-center border-b pb-3">
+                        <h3 class="font-bold text-lg text-gray-900">Tu Carrito de Pedido</h3>
+                        <button id="closeCartBtn" class="text-gray-500 font-bold text-lg">✕</button>
+                    </div>
+                    <div id="cartItemsContainer" class="py-4 space-y-3 max-h-[60vh] overflow-y-auto"></div>
+                </div>
+                <div>
+                    <div class="border-t pt-3 space-y-2">
+                        <div class="flex justify-between font-bold text-gray-900 text-sm">
+                            <span>Total Estimado:</span>
+                            <span id="cartTotal">$0</span>
+                        </div>
+                        <button id="whatsappCheckoutBtn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-lg text-xs flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-sm"></i> Enviar Pedido por WhatsApp
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzi2zPycPgWMY93JTpSYUPCyp9SqGAosQb-c5QlzjVgCpsqKOXNUhEs0GM91OIz37ri/exec";
+
+        let products = [];
+        let currentCategory = 'all';
+        let cart = JSON.parse(localStorage.getItem('cv_cart') || '[]');
+
+        function formatARS(amount) {
+            return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', maximumFractionDigits: 0 }).format(amount);
+        }
+
+        async function fetchProducts() {
+            const statusEl = document.getElementById('loadingStatus');
+            try {
+                if(WEB_APP_URL.includes("TU_URL")) {
+                    statusEl.textContent = "⚠️ Configura la URL de Google Apps Script en el código JS.";
+                    return;
+                }
+                const response = await fetch(WEB_APP_URL);
+                const data = await response.json();
+                products = data;
+                renderProducts(products);
+            } catch (error) {
+                console.error("Error al cargar:", error);
+            }
+        }
+
+        function renderProducts(items) {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+            
+            if (items.length === 0) {
+                grid.innerHTML = `<p class="col-span-full text-center text-gray-500 py-10">No se encontraron productos.</p>`;
+                return;
+            }
+
+            items.forEach(prod => {
+                const price = Number(prod.price) || 0;
+                const stock = Number(prod.stock) || 0;
+                const details = prod.details ? `<span class="text-[11px] text-brand-accent block mt-1">Detalle: ${prod.details}</span>` : '';
+                
+                const imageHtml = prod.image 
+                    ? `<img src="${prod.image}" alt="${prod.name}" class="w-full h-40 object-cover bg-gray-50">`
+                    : `<div class="w-full h-32 bg-gray-100 flex items-center justify-center text-gray-300"><i class="fa-solid fa-motorcycle text-3xl"></i></div>`;
+
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between";
+                card.innerHTML = `
+                    <div>
+                        ${imageHtml}
+                        <div class="p-4">
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-brand-blue bg-blue-50 px-2 py-0.5 rounded">${prod.category_name || 'GENERAL'}</span>
+                            <h3 class="font-bold text-gray-900 text-sm mt-2">${prod.name}</h3>
+                            ${details}
+                            <p class="text-[11px] text-gray-400 mt-1">Stock disponible: ${stock}u.</p>
+                            <div class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
+                                <span class="text-lg font-black text-gray-900">${formatARS(price)}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 pt-0">
+                        <button onclick="addToCart('${prod.id}')" class="w-full bg-brand-blue hover:bg-brand-bluedark text-white text-xs font-bold py-2.5 rounded-lg transition-colors flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-cart-plus"></i> Agregar
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterCategory(cat) {
+            currentCategory = cat;
+            if (cat === 'all') {
+                renderProducts(products);
+            } else {
+                const filtered = products.filter(p => p.category_name && p.category_name.toLowerCase() === cat.toLowerCase());
+                renderProducts(filtered);
+            }
+        }
+
+        function addToCart(id) {
+            const prod = products.find(p => String(p.id) === String(id));
+            if (!prod) return;
+            const existing = cart.find(item => String(item.id) === String(id));
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ ...prod, price: Number(prod.price), quantity: 1 });
+            }
+            updateCartUI();
+        }
+
+        // Funciones para modificar cantidades o eliminar desde el carrito
+        function changeQuantity(id, delta) {
+            const item = cart.find(i => String(i.id) === String(id));
+            if (!item) return;
+            item.quantity += delta;
+            if (item.quantity <= 0) {
+                removeFromCart(id);
+            } else {
+                updateCartUI();
+            }
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(i => String(i.id) !== String(id));
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            localStorage.setItem('cv_cart', JSON.stringify(cart));
+            document.getElementById('cartCountBadge').textContent = cart.reduce((a, c) => a + c.quantity, 0);
+            
+            const container = document.getElementById('cartItemsContainer');
+            container.innerHTML = '';
+            let total = 0;
+
+            if(cart.length === 0) {
+                container.innerHTML = `<p class="text-xs text-gray-400 text-center py-6">El carrito está vacío</p>`;
+            }
+
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+                container.innerHTML += `
+                    <div class="flex justify-between items-center text-xs border-b pb-3 gap-2">
+                        <div class="flex-1">
+                            <span class="font-bold block text-gray-900">${item.name}</span>
+                            <span class="text-gray-500">${formatARS(item.price)} c/u</span>
+                        </div>
+                        <div class="flex items-center space-x-1 border rounded bg-gray-50 p-0.5">
+                            <button onclick="changeQuantity('${item.id}', -1)" class="w-6 h-6 flex items-center justify-center font-bold text-gray-600 hover:bg-gray-200 rounded">-</button>
+                            <span class="w-6 text-center font-semibold">${item.quantity}</span>
+                            <button onclick="changeQuantity('${item.id}', 1)" class="w-6 h-6 flex items-center justify-center font-bold text-gray-600 hover:bg-gray-200 rounded">+</button>
+                        </div>
+                        <div class="text-right font-bold w-16">
+                            ${formatARS(item.price * item.quantity)}
+                        </div>
+                        <button onclick="removeFromCart('${item.id}')" class="text-red-500 hover:text-red-700 p-1" title="Eliminar producto">
+                            <i class="fa-solid fa-trash text-sm"></i>
+                        </button>
+                    </div>`;
+            });
+
+            document.getElementById('cartTotal').textContent = formatARS(total);
+        }
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const q = e.target.value.toLowerCase();
+            const filtered = products.filter(p => 
+                p.name.toLowerCase().includes(q) || 
+                (p.category_name && p.category_name.toLowerCase().includes(q)) ||
+                (p.details && p.details.toLowerCase().includes(q))
+            );
+            renderProducts(filtered);
+        });
+
+        document.getElementById('cartDrawerBtn').addEventListener('click', () => document.getElementById('cartDrawer').classList.remove('hidden'));
+        document.getElementById('closeCartBtn').addEventListener('click', () => document.getElementById('cartDrawer').classList.add('hidden'));
+
+        document.getElementById('whatsappCheckoutBtn').addEventListener('click', () => {
+            if (cart.length === 0) return alert('El carrito está vacío');
+            let text = "Hola C&V Distribuidora, quiero realizar el siguiente pedido:\n\n";
+            let total = 0;
+            cart.forEach(i => {
+                let sub = i.price * i.quantity;
+                total += sub;
+                text += `▪️ ${i.quantity}x ${i.name} (${formatARS(sub)})\n`;
+            });
+            text += `\n*Total Estimado: ${formatARS(total)}*`;
+            window.open(`https://wa.me/5493804883917?text=${encodeURIComponent(text)}`, '_blank');
+        });
+
+        // Inicializar
+        fetchProducts();
+        updateCartUI();
+    </script>
+</body>
+</html>
