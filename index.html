@@ -95,8 +95,8 @@
         </nav>
     </header>
 
-    <!-- Carrusel de Hero / Anuncios -->
-    <section id="heroSection" class="relative bg-brand-dark overflow-hidden">
+    <!-- Carrusel de Hero / Anuncios (CON TRANSICIÓN AGREGADA) -->
+    <section id="heroSection" class="relative bg-brand-dark overflow-hidden transition-all duration-300 ease-in-out opacity-100 transform translate-y-0">
         <div id="carouselSlides" class="relative w-full h-52 sm:h-72 md:h-80">
             <div class="carousel-item absolute inset-0 transition-opacity duration-700 ease-in-out opacity-100 flex items-center bg-gradient-to-r from-black via-brand-dark to-transparent">
                 <div class="max-w-7xl mx-auto px-6 sm:px-12 w-full z-10 text-white">
@@ -126,8 +126,8 @@
     <!-- Contenido Principal -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-1 w-full space-y-12">
         
-        <!-- SECCIÓN 1: PRODUCTOS DESTACADOS (SÓLO VISIBLE EN INICIO) -->
-        <section id="featuredSection">
+        <!-- SECCIÓN 1: PRODUCTOS DESTACADOS (CON TRANSICIÓN AGREGADA) -->
+        <section id="featuredSection" class="transition-all duration-300 ease-in-out opacity-100 transform translate-y-0">
             <div class="flex items-center justify-between mb-6 border-b border-gray-200 pb-3">
                 <h2 class="text-2xl font-black text-gray-900 uppercase tracking-tight flex items-center gap-2">
                     <i class="fa-solid fa-star text-amber-500"></i> Productos Destacados
@@ -139,8 +139,8 @@
             <div id="featuredGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
         </section>
 
-        <!-- SECCIÓN 2: CATÁLOGO COMPLETO -->
-        <section id="catalogo" class="hidden pt-2">
+        <!-- SECCIÓN 2: CATÁLOGO COMPLETO (CON TRANSICIÓN AGREGADA) -->
+        <section id="catalogo" class="hidden opacity-0 transform translate-y-2 transition-all duration-300 ease-in-out pt-2">
             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-8">
                 <div>
                     <h2 class="text-2xl font-black text-gray-900 uppercase tracking-tight flex items-center gap-2">
@@ -331,16 +331,32 @@
             `;
         }
 
-        function switchTab(tab) {
+        // FUNCIÓN SWITCH TAB ACTUALIZADA CON ANIMACIONES FADE-OUT / FADE-IN
+        async function switchTab(tab) {
             const hero = document.getElementById('heroSection');
             const featured = document.getElementById('featuredSection');
             const catalog = document.getElementById('catalogo');
             const contact = document.getElementById('contactoSection');
 
+            const animatedSections = [hero, featured, catalog];
+
+            // 1. Aplicar desvanecimiento (Fade Out)
+            animatedSections.forEach(sec => {
+                if (!sec.classList.contains('hidden')) {
+                    sec.classList.remove('opacity-100', 'translate-y-0');
+                    sec.classList.add('opacity-0', 'translate-y-2');
+                }
+            });
+
+            // 2. Esperar 200ms para completar la transición visual de salida
+            await new Promise(resolve => setTimeout(resolve, 200));
+
+            // Resetear estilos de menú
             document.getElementById('nav-inicio').className = 'text-gray-300 hover:text-white transition-colors flex items-center gap-1';
             document.getElementById('nav-catalogo').className = 'text-gray-300 hover:text-white transition-colors flex items-center gap-1';
             document.getElementById('nav-contacto').className = 'text-gray-300 hover:text-white transition-colors flex items-center gap-1';
 
+            // 3. Ocultar / Mostrar bloques en el DOM
             if (tab === 'inicio') {
                 hero.classList.remove('hidden');
                 featured.classList.remove('hidden');
@@ -356,7 +372,20 @@
             } else if (tab === 'contacto') {
                 document.getElementById('nav-contacto').className = 'text-red-500 hover:text-red-400 transition-colors flex items-center gap-1';
                 contact.scrollIntoView({ behavior: 'smooth' });
+                return;
             }
+
+            // 4. Aplicar aparición suave (Fade In) en el siguiente frame de renderizado
+            requestAnimationFrame(() => {
+                setTimeout(() => {
+                    animatedSections.forEach(sec => {
+                        if (!sec.classList.contains('hidden')) {
+                            sec.classList.remove('opacity-0', 'translate-y-2');
+                            sec.classList.add('opacity-100', 'translate-y-0');
+                        }
+                    });
+                }, 50);
+            });
         }
 
         function executeSearch() {
@@ -540,9 +569,7 @@
         document.getElementById('cartDrawerBtn').addEventListener('click', () => document.getElementById('cartDrawer').classList.remove('hidden'));
         document.getElementById('closeCartBtn').addEventListener('click', () => document.getElementById('cartDrawer').classList.add('hidden'));
 
-        // ==========================================
         // GENERACIÓN DE FACTURA PDF CON LOGO + WHATSAPP
-        // ==========================================
         document.getElementById('whatsappCheckoutBtn').addEventListener('click', async () => {
             if (cart.length === 0) return alert('El carrito está vacío');
 
@@ -552,7 +579,6 @@
             const orderNum = Math.floor(100000 + Math.random() * 900000);
             const dateStr = new Date().toLocaleDateString('es-AR');
 
-            // Cargar Logo como Data URL
             const logoImg = document.getElementById('brandLogoImg');
             try {
                 const canvas = document.createElement('canvas');
@@ -561,16 +587,13 @@
                 const ctx = canvas.getContext('canvas-2d') || canvas.getContext('2d');
                 ctx.drawImage(logoImg, 0, 0, canvas.width, canvas.height);
                 const logoBase64 = canvas.toDataURL('image/jpeg');
-                
-                // Dibujar Logo en PDF
                 doc.addImage(logoBase64, 'JPEG', 14, 12, 35, 15);
             } catch (e) {
                 console.log("Continuando sin logo por restricciones de origen de imagen:", e);
             }
 
-            // Encabezado de la Factura
             doc.setFontSize(16);
-            doc.setTextColor(15, 44, 89); // Color Brand Blue
+            doc.setTextColor(15, 44, 89);
             doc.text("C&V DISTRIBUIDORA", 55, 18);
             
             doc.setFontSize(9);
@@ -578,22 +601,19 @@
             doc.text("Moto Repuestos & Equipamiento", 55, 23);
             doc.text("La Rioja Capital, Argentina | Tel: +54 9 380 488-3917", 55, 27);
 
-            // Datos del Comprobante (Caja Derecha)
             doc.setFillColor(245, 247, 250);
             doc.rect(130, 10, 66, 22, 'F');
             doc.setFontSize(11);
-            doc.setTextColor(220, 38, 38); // Red
+            doc.setTextColor(220, 38, 38);
             doc.text("PRESUPUESTO / PEDIDO", 133, 17);
             doc.setFontSize(8);
             doc.setTextColor(50);
             doc.text(`N° Comprobante: #${orderNum}`, 133, 23);
             doc.text(`Fecha: ${dateStr}`, 133, 28);
 
-            // Línea divisora
             doc.setDrawColor(200);
             doc.line(14, 35, 196, 35);
 
-            // Estructura de la Tabla de Productos
             const tableData = [];
             let totalAmount = 0;
 
@@ -625,7 +645,6 @@
                 }
             });
 
-            // Resumen de Totales
             const finalY = doc.lastAutoTable.finalY + 8;
             
             doc.setFillColor(15, 44, 89);
@@ -635,17 +654,14 @@
             doc.text("TOTAL ESTIMADO:", 128, finalY + 8);
             doc.text(formatARS(totalAmount), 193, finalY + 8, { align: 'right' });
 
-            // Pie de página
             doc.setFontSize(8);
             doc.setTextColor(120);
             doc.text("Este documento es un comprobante de pedido enviado desde la tienda online.", 14, finalY + 25);
             doc.text("Gracias por elegir C&V Distribuidora.", 14, finalY + 29);
 
-            // Guardar PDF en el dispositivo del cliente
             const fileName = `Factura_Pedido_CV_${orderNum}.pdf`;
             doc.save(fileName);
 
-            // Notificación y redirección a WhatsApp
             alert(`✅ La factura digital #${orderNum} se ha descargado en tu dispositivo.\n\nA continuación se abrirá WhatsApp. Adjunta la factura descargada al chat para confirmar tu pedido.`);
 
             const waText = `Hola C&V Store, acabo de generar mi presupuesto de compra (Pedido #${orderNum}) por un total de ${formatARS(totalAmount)}.\n\nAdjunto el archivo PDF con la factura detallada.`;
