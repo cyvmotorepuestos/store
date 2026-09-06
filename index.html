@@ -248,7 +248,7 @@
     </div>
 
     <script>
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwC1itXSy9umu58R1xDUCz5ddKbgq27zUINzMaCbCk1MKnon9Bk9eQeLd1fOJZCaKlI/exec";
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxn1z3mZuyCct0MBSrctenpTK1rmTxkYncAltDuaJ3pkPf5jqYHooEUAnThsYQNuNMwlg/exec";
 
         let products = [];
         let filteredProducts = [];
@@ -570,103 +570,126 @@
         document.getElementById('closeCartBtn').addEventListener('click', () => document.getElementById('cartDrawer').classList.add('hidden'));
 
         // GENERACIÓN DE FACTURA PDF CON LOGO + WHATSAPP
-        document.getElementById('whatsappCheckoutBtn').addEventListener('click', async () => {
-            if (cart.length === 0) return alert('El carrito está vacío');
+document.getElementById('whatsappCheckoutBtn').addEventListener('click', async () => {
+    if (cart.length === 0) return alert('El carrito está vacío');
 
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+    // --- PASO AGREGADO: Enviar descuento de stock a Google Sheets ---
+    try {
+        const payload = {
+            items: cart.map(item => ({ id: item.id, quantity: item.quantity }))
+        };
 
-            const orderNum = Math.floor(100000 + Math.random() * 900000);
-            const dateStr = new Date().toLocaleDateString('es-AR');
-
-            const logoImg = document.getElementById('brandLogoImg');
-            try {
-                const canvas = document.createElement('canvas');
-                canvas.width = logoImg.naturalWidth || 200;
-                canvas.height = logoImg.naturalHeight || 80;
-                const ctx = canvas.getContext('canvas-2d') || canvas.getContext('2d');
-                ctx.drawImage(logoImg, 0, 0, canvas.width, canvas.height);
-                const logoBase64 = canvas.toDataURL('image/jpeg');
-                doc.addImage(logoBase64, 'JPEG', 14, 12, 35, 15);
-            } catch (e) {
-                console.log("Continuando sin logo por restricciones de origen de imagen:", e);
-            }
-
-            doc.setFontSize(16);
-            doc.setTextColor(15, 44, 89);
-            doc.text("C&V DISTRIBUIDORA", 55, 18);
-            
-            doc.setFontSize(9);
-            doc.setTextColor(100);
-            doc.text("Moto Repuestos & Equipamiento", 55, 23);
-            doc.text("La Rioja Capital, Argentina | Tel: +54 9 380 488-3917", 55, 27);
-
-            doc.setFillColor(245, 247, 250);
-            doc.rect(130, 10, 66, 22, 'F');
-            doc.setFontSize(11);
-            doc.setTextColor(220, 38, 38);
-            doc.text("PRESUPUESTO / PEDIDO", 133, 17);
-            doc.setFontSize(8);
-            doc.setTextColor(50);
-            doc.text(`N° Comprobante: #${orderNum}`, 133, 23);
-            doc.text(`Fecha: ${dateStr}`, 133, 28);
-
-            doc.setDrawColor(200);
-            doc.line(14, 35, 196, 35);
-
-            const tableData = [];
-            let totalAmount = 0;
-
-            cart.forEach(item => {
-                const subtotal = item.price * item.quantity;
-                totalAmount += subtotal;
-                tableData.push([
-                    item.id || '-',
-                    item.name,
-                    item.quantity.toString(),
-                    formatARS(item.price),
-                    formatARS(subtotal)
-                ]);
-            });
-
-            doc.autoTable({
-                startY: 40,
-                head: [['Código', 'Descripción del Repuesto / Producto', 'Cant.', 'Precio U.', 'Subtotal']],
-                body: tableData,
-                headStyles: { fillColor: [15, 44, 89], textColor: [255, 255, 255], fontStyle: 'bold' },
-                alternateRowStyles: { fillColor: [248, 250, 252] },
-                styles: { fontSize: 8, cellPadding: 3 },
-                columnStyles: {
-                    0: { cellWidth: 22 },
-                    1: { cellWidth: 90 },
-                    2: { cellWidth: 18, halign: 'center' },
-                    3: { cellWidth: 30, halign: 'right' },
-                    4: { cellWidth: 32, halign: 'right' }
-                }
-            });
-
-            const finalY = doc.lastAutoTable.finalY + 8;
-            
-            doc.setFillColor(15, 44, 89);
-            doc.rect(125, finalY, 71, 12, 'F');
-            doc.setFontSize(11);
-            doc.setTextColor(255, 255, 255);
-            doc.text("TOTAL ESTIMADO:", 128, finalY + 8);
-            doc.text(formatARS(totalAmount), 193, finalY + 8, { align: 'right' });
-
-            doc.setFontSize(8);
-            doc.setTextColor(120);
-            doc.text("Este documento es un comprobante de pedido enviado desde la tienda online.", 14, finalY + 25);
-            doc.text("Gracias por elegir C&V Distribuidora.", 14, finalY + 29);
-
-            const fileName = `Factura_Pedido_CV_${orderNum}.pdf`;
-            doc.save(fileName);
-
-            alert(`✅ La factura digital #${orderNum} se ha descargado en tu dispositivo.\n\nA continuación se abrirá WhatsApp. Adjunta la factura descargada al chat para confirmar tu pedido.`);
-
-            const waText = `Hola C&V Store, acabo de generar mi presupuesto de compra (Pedido #${orderNum}) por un total de ${formatARS(totalAmount)}.\n\nAdjunto el archivo PDF con la factura detallada.`;
-            window.open(`https://wa.me/5493804883917?text=${encodeURIComponent(waText)}`, '_blank');
+        await fetch(WEB_APP_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'text/plain' },
+            body: JSON.stringify(payload)
         });
+    } catch (err) {
+        console.error("Error al actualizar el stock en Google Sheets:", err);
+    }
+
+    // --- LÓGICA EXISTENTE: Generación del PDF ---
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    const orderNum = Math.floor(100000 + Math.random() * 900000);
+    const dateStr = new Date().toLocaleDateString('es-AR');
+
+    const logoImg = document.getElementById('brandLogoImg');
+    try {
+        const canvas = document.createElement('canvas');
+        canvas.width = logoImg.naturalWidth || 200;
+        canvas.height = logoImg.naturalHeight || 80;
+        const ctx = canvas.getContext('canvas-2d') || canvas.getContext('2d');
+        ctx.drawImage(logoImg, 0, 0, canvas.width, canvas.height);
+        const logoBase64 = canvas.toDataURL('image/jpeg');
+        doc.addImage(logoBase64, 'JPEG', 14, 12, 35, 15);
+    } catch (e) {
+        console.log("Continuando sin logo por restricciones de origen de imagen:", e);
+    }
+
+    doc.setFontSize(16);
+    doc.setTextColor(15, 44, 89);
+    doc.text("C&V DISTRIBUIDORA", 55, 18);
+    
+    doc.setFontSize(9);
+    doc.setTextColor(100);
+    doc.text("Moto Repuestos & Equipamiento", 55, 23);
+    doc.text("La Rioja Capital, Argentina | Tel: +54 9 380 488-3917", 55, 27);
+
+    doc.setFillColor(245, 247, 250);
+    doc.rect(130, 10, 66, 22, 'F');
+    doc.setFontSize(11);
+    doc.setTextColor(220, 38, 38);
+    doc.text("PRESUPUESTO / PEDIDO", 133, 17);
+    doc.setFontSize(8);
+    doc.setTextColor(50);
+    doc.text(`N° Comprobante: #${orderNum}`, 133, 23);
+    doc.text(`Fecha: ${dateStr}`, 133, 28);
+
+    doc.setDrawColor(200);
+    doc.line(14, 35, 196, 35);
+
+    const tableData = [];
+    let totalAmount = 0;
+
+    cart.forEach(item => {
+        const subtotal = item.price * item.quantity;
+        totalAmount += subtotal;
+        tableData.push([
+            item.id || '-',
+            item.name,
+            item.quantity.toString(),
+            formatARS(item.price),
+            formatARS(subtotal)
+        ]);
+    });
+
+    doc.autoTable({
+        startY: 40,
+        head: [['Código', 'Descripción del Repuesto / Producto', 'Cant.', 'Precio U.', 'Subtotal']],
+        body: tableData,
+        headStyles: { fillColor: [15, 44, 89], textColor: [255, 255, 255], fontStyle: 'bold' },
+        alternateRowStyles: { fillColor: [248, 250, 252] },
+        styles: { fontSize: 8, cellPadding: 3 },
+        columnStyles: {
+            0: { cellWidth: 22 },
+            1: { cellWidth: 90 },
+            2: { cellWidth: 18, halign: 'center' },
+            3: { cellWidth: 30, halign: 'right' },
+            4: { cellWidth: 32, halign: 'right' }
+        }
+    });
+
+    const finalY = doc.lastAutoTable.finalY + 8;
+    
+    doc.setFillColor(15, 44, 89);
+    doc.rect(125, finalY, 71, 12, 'F');
+    doc.setFontSize(11);
+    doc.setTextColor(255, 255, 255);
+    doc.text("TOTAL ESTIMADO:", 128, finalY + 8);
+    doc.text(formatARS(totalAmount), 193, finalY + 8, { align: 'right' });
+
+    doc.setFontSize(8);
+    doc.setTextColor(120);
+    doc.text("Este documento es un comprobante de pedido enviado desde la tienda online.", 14, finalY + 25);
+    doc.text("Gracias por elegir C&V Distribuidora.", 14, finalY + 29);
+
+    const fileName = `Factura_Pedido_CV_${orderNum}.pdf`;
+    doc.save(fileName);
+
+    alert(`✅ La factura digital #${orderNum} se ha descargado en tu dispositivo.\n\nA continuación se abrirá WhatsApp. Adjunta la factura descargada al chat para confirmar tu pedido.`);
+
+    // --- PASO AGREGADO: Vaciar carrito local y recargar stock actualizado ---
+    cart = [];
+    localStorage.removeItem('cv_cart');
+    updateCartUI();
+    fetchProducts();
+
+    const waText = `Hola C&V Store, acabo de generar mi presupuesto de compra (Pedido #${orderNum}) por un total de ${formatARS(totalAmount)}.\n\nAdjunto el archivo PDF con la factura detallada.`;
+    window.open(`https://wa.me/5493804883917?text=${encodeURIComponent(waText)}`, '_blank');
+});
 
         // Inicializar
         fetchProducts();
