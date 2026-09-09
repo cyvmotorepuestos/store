@@ -298,25 +298,43 @@
         }
 
         async function fetchProducts() {
-            try {
-                if(WEB_APP_URL.includes("TU_URL")) return;
-                const response = await fetch(WEB_APP_URL);
-                const data = await response.json();
-                
-                products = data.map(p => ({
-                    ...p,
-                    price: Number(p.price) || 0,
-                    stock: Number(p.stock) || 0
-                }));
+    try {
+        if(WEB_APP_URL.includes("TU_URL")) return;
 
-                filteredProducts = [...products];
+        // 1. Revisar si tenemos datos en caché y si tienen menos de 15 minutos
+        const cachedData = localStorage.getItem('cv_products_cache');
+        const cachedTime = localStorage.getItem('cv_cache_time');
+        const now = new Date().getTime();
 
-                renderFeaturedProducts();
-                renderCatalog();
-            } catch (error) {
-                console.error("Error al cargar productos:", error);
-            }
+        if (cachedData && cachedTime && (now - cachedTime < 15 * 60 * 1000)) {
+            products = JSON.parse(cachedData);
+            filteredProducts = [...products];
+            renderFeaturedProducts();
+            renderCatalog();
+            return; // Salimos sin hacer la petición a Google Sheets
         }
+
+        // 2. Si no hay caché válida, consultamos a Google Apps Script
+        const response = await fetch(WEB_APP_URL);
+        const data = await response.json();
+        
+        products = data.map(p => ({
+            ...p,
+            price: Number(p.price) || 0,
+            stock: Number(p.stock) || 0
+        }));
+
+        // Guardar en caché local
+        localStorage.setItem('cv_products_cache', JSON.stringify(products));
+        localStorage.setItem('cv_cache_time', now);
+
+        filteredProducts = [...products];
+        renderFeaturedProducts();
+        renderCatalog();
+    } catch (error) {
+        console.error("Error al cargar productos:", error);
+    }
+}
 
         function getAvailableStock(prod) {
             const inCart = cart.find(item => String(item.id) === String(prod.id));
