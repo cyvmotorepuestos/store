@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>C&V | Equipamiento y Repuestos para Motos</title>
+    <link rel="icon" type="image/jpeg" href="Imagen2.jpg">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -95,32 +96,68 @@
         </nav>
     </header>
 
-    <!-- Carrusel de Hero / Anuncios (CON TRANSICIÓN AGREGADA) -->
+    <!-- Carrusel de Hero / Anuncios -->
     <section id="heroSection" class="relative bg-brand-dark overflow-hidden transition-all duration-300 ease-in-out opacity-100 transform translate-y-0">
-        <div id="carouselSlides" class="relative w-full h-52 sm:h-72 md:h-80">
-            <div class="carousel-item absolute inset-0 transition-opacity duration-700 ease-in-out opacity-100 flex items-center bg-gradient-to-r from-black via-brand-dark to-transparent">
-                <div class="max-w-7xl mx-auto px-6 sm:px-12 w-full z-10 text-white">
-                    <span class="bg-red-600 text-[10px] font-black px-2.5 py-1 rounded uppercase tracking-wider mb-2 inline-block">Novedades 2026</span>
-                    <h1 class="text-2xl sm:text-4xl font-extrabold uppercase tracking-tight">Equipamiento & Repuestos</h1>
-                    <p class="text-xs sm:text-sm text-gray-300 mt-2 max-w-md">Catálogo completo multimarca con stock actualizado en tiempo real.</p>
-                    <button onclick="switchTab('catalogo')" class="mt-4 inline-block bg-red-600 hover:bg-red-700 text-white font-bold text-xs px-5 py-2.5 rounded-lg shadow-lg transition-transform active:scale-95">Ver Catálogo Completo</button>
+        <div id="carouselSlides" class="relative w-full h-64 sm:h-80 md:h-[420px]">
+            <!-- Slide 1 -->
+            <div class="carousel-item absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-100 flex items-center">
+                <div class="absolute inset-0 bg-cover bg-center transform scale-105 transition-transform duration-1000" style="background-image: url('https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1600&q=85');"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent"></div>
+                <div class="max-w-7xl mx-auto px-6 sm:px-12 w-full z-10 text-white py-12">
+                    <span class="bg-red-600 text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider mb-3 inline-block shadow-lg">Distribuidor Oficial 2026</span>
+                    <h1 class="text-3xl sm:text-5xl font-black uppercase tracking-tight max-w-xl leading-none">Potencia y Rendimiento para tu Moto</h1>
+                    <p class="text-xs sm:text-sm text-gray-300 mt-3 max-w-md font-medium">Amplio stock en repuestos originales y alternativos multimarca con entrega inmediata.</p>
+                    <div class="mt-6 flex flex-wrap gap-3">
+                        <button onclick="switchTab('catalogo')" class="bg-red-600 hover:bg-red-700 text-white font-extrabold text-xs px-6 py-3 rounded-xl shadow-xl transition-transform active:scale-95 flex items-center gap-2">
+                            <span>Ver Catálogo</span> <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </button>
+                    </div>
                 </div>
-                <div class="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-overlay" style="background-image: url('https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=1200&q=80');"></div>
             </div>
 
-            <div class="carousel-item absolute inset-0 transition-opacity duration-700 ease-in-out opacity-0 flex items-center bg-gradient-to-r from-black via-brand-dark to-transparent">
-                <div class="max-w-7xl mx-auto px-6 sm:px-12 w-full z-10 text-white">
-                    <span class="bg-brand-accent text-black text-[10px] font-black px-2.5 py-1 rounded uppercase tracking-wider mb-2 inline-block">Ventas al Por Mayor y Menor</span>
-                    <h2 class="text-2xl sm:text-4xl font-extrabold uppercase tracking-tight">Atención Especializada</h2>
-                    <p class="text-xs sm:text-sm text-gray-300 mt-2 max-w-md">Enviamos tu pedido directo a tu taller o domicilio con la mayor rapidez.</p>
-                    <a href="https://wa.me/5493804883917" target="_blank" class="mt-4 inline-block bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs px-5 py-2.5 rounded-lg shadow-lg transition-transform active:scale-95">Consulta Mayorista</a>
+            <!-- Slide 2 -->
+            <div class="carousel-item absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 flex items-center">
+                <div class="absolute inset-0 bg-cover bg-center transform scale-105 transition-transform duration-1000" style="background-image: url('https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=1600&q=85');"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent"></div>
+                <div class="max-w-7xl mx-auto px-6 sm:px-12 w-full z-10 text-white py-12">
+                    <span class="bg-amber-500 text-black text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider mb-3 inline-block shadow-lg">Ventas Mayoristas y Minoristas</span>
+                    <h2 class="text-3xl sm:text-5xl font-black uppercase tracking-tight max-w-xl leading-none">Atención Especializada a Talleres</h2>
+                    <p class="text-xs sm:text-sm text-gray-300 mt-3 max-w-md font-medium">Cotizaciones rápidas, asesoramiento técnico personalizado y envíos seguros a domicilio.</p>
+                    <div class="mt-6 flex flex-wrap gap-3">
+                        <a href="https://wa.me/5493804722571" target="_blank" class="bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs px-6 py-3 rounded-xl shadow-xl transition-transform active:scale-95 flex items-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-sm"></i> <span>Contactar Asesor</span>
+                        </a>
+                    </div>
                 </div>
-                <div class="absolute inset-0 bg-cover bg-center opacity-30 mix-blend-overlay" style="background-image: url('https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=1200&q=80');"></div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="carousel-item absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 flex items-center">
+                <div class="absolute inset-0 bg-cover bg-center transform scale-105 transition-transform duration-1000" style="background-image: url('https://images.unsplash.com/photo-1558980664-3a031cf67ea8?auto=format&fit=crop&w=1600&q=85');"></div>
+                <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-transparent"></div>
+                <div class="max-w-7xl mx-auto px-6 sm:px-12 w-full z-10 text-white py-12">
+                    <span class="bg-blue-600 text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider mb-3 inline-block shadow-lg">Calidad Garantizada</span>
+                    <h2 class="text-3xl sm:text-5xl font-black uppercase tracking-tight max-w-xl leading-none">Todo en Transmisión y Frenos</h2>
+                    <p class="text-xs sm:text-sm text-gray-300 mt-3 max-w-md font-medium">Encuentra cadenas, coronas, piñones, pastillas y discos de máxima durabilidad.</p>
+                    <div class="mt-6 flex flex-wrap gap-3">
+                        <button onclick="switchTab('catalogo')" class="bg-white hover:bg-gray-100 text-brand-dark font-extrabold text-xs px-6 py-3 rounded-xl shadow-xl transition-transform active:scale-95 flex items-center gap-2">
+                            <span>Explorar Productos</span> <i class="fa-solid fa-magnifying-glass text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <button id="prevSlideBtn" class="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white w-9 h-9 rounded-full flex items-center justify-center text-xs backdrop-blur-sm z-20">❮</button>
-        <button id="nextSlideBtn" class="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/70 text-white w-9 h-9 rounded-full flex items-center justify-center text-xs backdrop-blur-sm z-20">❯</button>
+        <!-- Botones de navegación del carrusel -->
+        <button id="prevSlideBtn" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-sm backdrop-blur-md z-20 transition-all shadow-lg">❮</button>
+        <button id="nextSlideBtn" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-red-600 text-white w-10 h-10 rounded-full flex items-center justify-center text-sm backdrop-blur-md z-20 transition-all shadow-lg">❯</button>
+
+        <!-- Indicadores de puntos (Dots) -->
+        <div class="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-20">
+            <button onclick="currentSlide = 0; showSlide(currentSlide);" class="carousel-dot w-3 h-1.5 rounded-full bg-white/50 hover:bg-white transition-all"></button>
+            <button onclick="currentSlide = 1; showSlide(currentSlide);" class="carousel-dot w-3 h-1.5 rounded-full bg-white/50 hover:bg-white transition-all"></button>
+            <button onclick="currentSlide = 2; showSlide(currentSlide);" class="carousel-dot w-3 h-1.5 rounded-full bg-white/50 hover:bg-white transition-all"></button>
+        </div>
     </section>
 
     <!-- Contenido Principal -->
@@ -249,7 +286,7 @@
     </div>
 
     <script>
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxn1z3mZuyCct0MBSrctenpTK1rmTxkYncAltDuaJ3pkPf5jqYHooEUAnThsYQNuNMwlg/exec";
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzTfXsaUX-fo2YX3g_PFTEF61MxmXxXhx8vcwxkWsEAkfm1kBqj_qb7OP3KdIb9DTk4Xw/exec";
 
         let products = [];
         let filteredProducts = [];
@@ -542,13 +579,29 @@
             document.getElementById('cartTotal').textContent = formatARS(total);
         }
 
-        // Carrusel
+        // Carrusel logic actualizado para 3 imágenes y dots
         const slides = document.querySelectorAll('.carousel-item');
+        const dots = document.querySelectorAll('.carousel-dot');
         let currentSlide = 0;
 
         function showSlide(index) {
             slides.forEach((slide, idx) => {
-                slide.style.opacity = idx === index ? '1' : '0';
+                if (idx === index) {
+                    slide.style.opacity = '1';
+                    slide.classList.remove('pointer-events-none');
+                } else {
+                    slide.style.opacity = '0';
+                    slide.classList.add('pointer-events-none');
+                }
+            });
+            dots.forEach((dot, idx) => {
+                if (idx === index) {
+                    dot.classList.remove('bg-white/50');
+                    dot.classList.add('bg-white', 'w-6');
+                } else {
+                    dot.classList.remove('bg-white', 'w-6');
+                    dot.classList.add('bg-white/50', 'w-3');
+                }
             });
         }
 
@@ -565,132 +618,135 @@
         setInterval(() => {
             currentSlide = (currentSlide + 1) % slides.length;
             showSlide(currentSlide);
-        }, 5000);
+        }, 6000);
+
+        // Inicializar indicadores del carrusel
+        showSlide(currentSlide);
 
         document.getElementById('cartDrawerBtn').addEventListener('click', () => document.getElementById('cartDrawer').classList.remove('hidden'));
         document.getElementById('closeCartBtn').addEventListener('click', () => document.getElementById('cartDrawer').classList.add('hidden'));
 
         // GENERACIÓN DE FACTURA PDF CON LOGO + WHATSAPP
-document.getElementById('whatsappCheckoutBtn').addEventListener('click', async () => {
-    if (cart.length === 0) return alert('El carrito está vacío');
+        document.getElementById('whatsappCheckoutBtn').addEventListener('click', async () => {
+            if (cart.length === 0) return alert('El carrito está vacío');
 
-    // --- PASO AGREGADO: Enviar descuento de stock a Google Sheets ---
-    try {
-        const payload = {
-            items: cart.map(item => ({ id: item.id, quantity: item.quantity }))
-        };
+            // --- PASO AGREGADO: Enviar descuento de stock a Google Sheets ---
+            try {
+                const payload = {
+                    items: cart.map(item => ({ id: item.id, quantity: item.quantity }))
+                };
 
-        await fetch(WEB_APP_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'text/plain' },
-            body: JSON.stringify(payload)
+                await fetch(WEB_APP_URL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'text/plain' },
+                    body: JSON.stringify(payload)
+                });
+            } catch (err) {
+                console.error("Error al actualizar el stock en Google Sheets:", err);
+            }
+
+            // --- LÓGICA EXISTENTE: Generación del PDF ---
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            const orderNum = Math.floor(100000 + Math.random() * 900000);
+            const dateStr = new Date().toLocaleDateString('es-AR');
+
+            const logoImg = document.getElementById('brandLogoImg');
+            try {
+                const canvas = document.createElement('canvas');
+                canvas.width = logoImg.naturalWidth || 200;
+                canvas.height = logoImg.naturalHeight || 80;
+                const ctx = canvas.getContext('canvas-2d') || canvas.getContext('2d');
+                ctx.drawImage(logoImg, 0, 0, canvas.width, canvas.height);
+                const logoBase64 = canvas.toDataURL('image/jpeg');
+                doc.addImage(logoBase64, 'JPEG', 14, 12, 35, 15);
+            } catch (e) {
+                console.log("Continuando sin logo por restricciones de origen de imagen:", e);
+            }
+
+            doc.setFontSize(16);
+            doc.setTextColor(15, 44, 89);
+            doc.text("C&V DISTRIBUIDORA", 55, 18);
+            
+            doc.setFontSize(9);
+            doc.setTextColor(100);
+            doc.text("Moto Repuestos & Equipamiento", 55, 23);
+            doc.text("La Rioja Capital, Argentina | Tel: +54 9 380 472-2571", 55, 27);
+
+            doc.setFillColor(245, 247, 250);
+            doc.rect(130, 10, 66, 22, 'F');
+            doc.setFontSize(11);
+            doc.setTextColor(220, 38, 38);
+            doc.text("PRESUPUESTO / PEDIDO", 133, 17);
+            doc.setFontSize(8);
+            doc.setTextColor(50);
+            doc.text(`N° Comprobante: #${orderNum}`, 133, 23);
+            doc.text(`Fecha: ${dateStr}`, 133, 28);
+
+            doc.setDrawColor(200);
+            doc.line(14, 35, 196, 35);
+
+            const tableData = [];
+            let totalAmount = 0;
+
+            cart.forEach(item => {
+                const subtotal = item.price * item.quantity;
+                totalAmount += subtotal;
+                tableData.push([
+                    item.id || '-',
+                    item.name,
+                    item.quantity.toString(),
+                    formatARS(item.price),
+                    formatARS(subtotal)
+                ]);
+            });
+
+            doc.autoTable({
+                startY: 40,
+                head: [['Código', 'Descripción del Repuesto / Producto', 'Cant.', 'Precio U.', 'Subtotal']],
+                body: tableData,
+                headStyles: { fillColor: [15, 44, 89], textColor: [255, 255, 255], fontStyle: 'bold' },
+                alternateRowStyles: { fillColor: [248, 250, 252] },
+                styles: { fontSize: 8, cellPadding: 3 },
+                columnStyles: {
+                    0: { cellWidth: 22 },
+                    1: { cellWidth: 90 },
+                    2: { cellWidth: 18, halign: 'center' },
+                    3: { cellWidth: 30, halign: 'right' },
+                    4: { cellWidth: 32, halign: 'right' }
+                }
+            });
+
+            const finalY = doc.lastAutoTable.finalY + 8;
+            
+            doc.setFillColor(15, 44, 89);
+            doc.rect(125, finalY, 71, 12, 'F');
+            doc.setFontSize(11);
+            doc.setTextColor(255, 255, 255);
+            doc.text("TOTAL ESTIMADO:", 128, finalY + 8);
+            doc.text(formatARS(totalAmount), 193, finalY + 8, { align: 'right' });
+
+            doc.setFontSize(8);
+            doc.setTextColor(120);
+            doc.text("Este documento es un comprobante de pedido enviado desde la tienda online.", 14, finalY + 25);
+            doc.text("Gracias por elegir C&V Distribuidora.", 14, finalY + 29);
+
+            const fileName = `Factura_Pedido_CV_${orderNum}.pdf`;
+            doc.save(fileName);
+
+            alert(`✅ La factura digital #${orderNum} se ha descargado en tu dispositivo.\n\nA continuación se abrirá WhatsApp. Adjunta la factura descargada al chat para confirmar tu pedido.`);
+
+            // --- PASO AGREGADO: Vaciar carrito local y recargar stock actualizado ---
+            cart = [];
+            localStorage.removeItem('cv_cart');
+            updateCartUI();
+            fetchProducts();
+
+            const waText = `Hola C&V Store, acabo de generar mi presupuesto de compra (Pedido #${orderNum}) por un total de ${formatARS(totalAmount)}.\n\nAdjunto el archivo PDF con la factura detallada.`;
+            window.open(`https://wa.me/5493804722571?text=${encodeURIComponent(waText)}`, '_blank');
         });
-    } catch (err) {
-        console.error("Error al actualizar el stock en Google Sheets:", err);
-    }
-
-    // --- LÓGICA EXISTENTE: Generación del PDF ---
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-
-    const orderNum = Math.floor(100000 + Math.random() * 900000);
-    const dateStr = new Date().toLocaleDateString('es-AR');
-
-    const logoImg = document.getElementById('brandLogoImg');
-    try {
-        const canvas = document.createElement('canvas');
-        canvas.width = logoImg.naturalWidth || 200;
-        canvas.height = logoImg.naturalHeight || 80;
-        const ctx = canvas.getContext('canvas-2d') || canvas.getContext('2d');
-        ctx.drawImage(logoImg, 0, 0, canvas.width, canvas.height);
-        const logoBase64 = canvas.toDataURL('image/jpeg');
-        doc.addImage(logoBase64, 'JPEG', 14, 12, 35, 15);
-    } catch (e) {
-        console.log("Continuando sin logo por restricciones de origen de imagen:", e);
-    }
-
-    doc.setFontSize(16);
-    doc.setTextColor(15, 44, 89);
-    doc.text("C&V DISTRIBUIDORA", 55, 18);
-    
-    doc.setFontSize(9);
-    doc.setTextColor(100);
-    doc.text("Moto Repuestos & Equipamiento", 55, 23);
-    doc.text("La Rioja Capital, Argentina | Tel: +54 9 380 488-3917", 55, 27);
-
-    doc.setFillColor(245, 247, 250);
-    doc.rect(130, 10, 66, 22, 'F');
-    doc.setFontSize(11);
-    doc.setTextColor(220, 38, 38);
-    doc.text("PRESUPUESTO / PEDIDO", 133, 17);
-    doc.setFontSize(8);
-    doc.setTextColor(50);
-    doc.text(`N° Comprobante: #${orderNum}`, 133, 23);
-    doc.text(`Fecha: ${dateStr}`, 133, 28);
-
-    doc.setDrawColor(200);
-    doc.line(14, 35, 196, 35);
-
-    const tableData = [];
-    let totalAmount = 0;
-
-    cart.forEach(item => {
-        const subtotal = item.price * item.quantity;
-        totalAmount += subtotal;
-        tableData.push([
-            item.id || '-',
-            item.name,
-            item.quantity.toString(),
-            formatARS(item.price),
-            formatARS(subtotal)
-        ]);
-    });
-
-    doc.autoTable({
-        startY: 40,
-        head: [['Código', 'Descripción del Repuesto / Producto', 'Cant.', 'Precio U.', 'Subtotal']],
-        body: tableData,
-        headStyles: { fillColor: [15, 44, 89], textColor: [255, 255, 255], fontStyle: 'bold' },
-        alternateRowStyles: { fillColor: [248, 250, 252] },
-        styles: { fontSize: 8, cellPadding: 3 },
-        columnStyles: {
-            0: { cellWidth: 22 },
-            1: { cellWidth: 90 },
-            2: { cellWidth: 18, halign: 'center' },
-            3: { cellWidth: 30, halign: 'right' },
-            4: { cellWidth: 32, halign: 'right' }
-        }
-    });
-
-    const finalY = doc.lastAutoTable.finalY + 8;
-    
-    doc.setFillColor(15, 44, 89);
-    doc.rect(125, finalY, 71, 12, 'F');
-    doc.setFontSize(11);
-    doc.setTextColor(255, 255, 255);
-    doc.text("TOTAL ESTIMADO:", 128, finalY + 8);
-    doc.text(formatARS(totalAmount), 193, finalY + 8, { align: 'right' });
-
-    doc.setFontSize(8);
-    doc.setTextColor(120);
-    doc.text("Este documento es un comprobante de pedido enviado desde la tienda online.", 14, finalY + 25);
-    doc.text("Gracias por elegir C&V Distribuidora.", 14, finalY + 29);
-
-    const fileName = `Factura_Pedido_CV_${orderNum}.pdf`;
-    doc.save(fileName);
-
-    alert(`✅ La factura digital #${orderNum} se ha descargado en tu dispositivo.\n\nA continuación se abrirá WhatsApp. Adjunta la factura descargada al chat para confirmar tu pedido.`);
-
-    // --- PASO AGREGADO: Vaciar carrito local y recargar stock actualizado ---
-    cart = [];
-    localStorage.removeItem('cv_cart');
-    updateCartUI();
-    fetchProducts();
-
-    const waText = `Hola C&V Store, acabo de generar mi presupuesto de compra (Pedido #${orderNum}) por un total de ${formatARS(totalAmount)}.\n\nAdjunto el archivo PDF con la factura detallada.`;
-    window.open(`https://wa.me/5493804883917?text=${encodeURIComponent(waText)}`, '_blank');
-});
 
         // Inicializar
         fetchProducts();
